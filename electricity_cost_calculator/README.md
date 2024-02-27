@@ -1,9 +1,7 @@
 # Intro
-This project is an electricity cost calculator that 
+The Electricity Cost Calculator is a comprehensive tool designed to estimate the cost of electricity consumption for residential or commercial properties. It takes into account various factors such as utility costs, infrastructure costs, time-of-use rates, solar panel generation, and the efficiency of heating systems like heat pumps.
 
-# Project Setup and Documentation
-
-## Setting Up Locally
+# Project Setup
 
 ### Prerequisites
 
@@ -49,7 +47,8 @@ For more detailed output, you can use the -v (verbose) option:
 pytest -v
 ```
 
-## File Structure Overview
+# Documentation
+### File Structure Overview
 ```bash
 project-name/
 │
@@ -72,7 +71,7 @@ project-name/
 └── README.md                    # Project overview and setup instructions
 ```
 
-## Class Descriptions
+### Class Descriptions
 **ElectricityCostCalculator:** Central class for calculating the overall electricity cost based on various inputs like utility costs, infrastructure costs, time-of-use rates, load profile, and contributions from solar panels and heat pumps.
 
 **UtilityCosts:** Represents utility-related costs, such as annual revenue requirements.
@@ -86,8 +85,3 @@ project-name/
 **SolarPanel:** Calculates the energy output of solar panels based on capacity and efficiency.
 
 **HeatPump:** Calculates the energy consumption of heat pumps, considering factors like the coefficient of performance (COP) and insulation.
-
-## Contributing
-For contributing to the project, please submit a pull request to a forked version of this repos and tag @antiroyalty in the request.
-Ensure that any additions follow the existing project structure and coding standards.
-Add or update tests as necessary for any new features or bug fixes.
