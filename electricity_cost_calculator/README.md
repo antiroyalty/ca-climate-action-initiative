@@ -1,0 +1,93 @@
+# Intro
+This project is an electricity cost calculator that 
+
+# Project Setup and Documentation
+
+## Setting Up Locally
+
+### Prerequisites
+
+- Python 3.8 or newer
+- pip (Python package installer)
+
+### Installation Steps
+
+1. **Clone the repository**: Clone the project repository to your local machine using Git.
+
+    ```bash
+    git clone <repository-url>
+    cd <project-directory>
+    ```
+
+2. **Create a virtual environment** (optional but recommended): This keeps your project dependencies isolated from your global Python installation.
+
+    ```bash
+    python3 -m venv venv
+    source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+    ```
+
+3. **Install dependencies**: Install the project's required dependencies, including `pytest` for running tests.
+
+    ```bash
+    pip install -r requirements.txt  # Assuming you have a requirements.txt file
+    ```
+
+    If you don't have a `requirements.txt`, you can install `pytest` directly:
+
+    ```bash
+    pip install pytest pytest-mock
+    ```
+
+### Running Tests
+To run the tests with `pytest`, use the following command:
+
+```bash
+pytest
+```
+For more detailed output, you can use the -v (verbose) option:
+```bash
+pytest -v
+```
+
+## File Structure Overview
+```bash
+project-name/
+│
+├── calculator/                  # Main package directory
+│   ├── __init__.py              # Initializes the Python package
+│   ├── electricity_cost_calculator.py  # Core calculator functionality
+│   ├── utility_costs.py         # Utility cost calculations
+│   ├── infrastructure_costs.py  # Infrastructure cost calculations
+│   ├── time_of_use_rates.py     # Time-of-use rates management
+│   ├── load_profile.py          # User's electricity load profile
+│   ├── solar_panel.py           # Solar panel output calculations
+│   └── heat_pump.py             # Heat pump energy consumption
+│
+├── tests/                       # Directory for test files
+│   ├── __init__.py
+│   ├── test_electricity_cost_calculator.py  # Tests for the calculator functionality
+│   └── ...                      # Other test files
+│
+├── requirements.txt             # Project dependencies
+└── README.md                    # Project overview and setup instructions
+```
+
+## Class Descriptions
+**ElectricityCostCalculator:** Central class for calculating the overall electricity cost based on various inputs like utility costs, infrastructure costs, time-of-use rates, load profile, and contributions from solar panels and heat pumps.
+
+**UtilityCosts:** Represents utility-related costs, such as annual revenue requirements.
+
+**InfrastructureCosts:** Handles calculations related to infrastructure investment and its return, considering the capital and return rate.
+
+**TimeOfUseRates:** Manages time-of-use electricity rates, allowing for different rates at different times of the day.
+
+**LoadProfile:** Represents the user's electricity consumption profile, detailing usage over different hours of the day.
+
+**SolarPanel:** Calculates the energy output of solar panels based on capacity and efficiency.
+
+**HeatPump:** Calculates the energy consumption of heat pumps, considering factors like the coefficient of performance (COP) and insulation.
+
+## Contributing
+For contributing to the project, please submit a pull request to a forked version of this repos and tag @antiroyalty in the request.
+Ensure that any additions follow the existing project structure and coding standards.
+Add or update tests as necessary for any new features or bug fixes.
