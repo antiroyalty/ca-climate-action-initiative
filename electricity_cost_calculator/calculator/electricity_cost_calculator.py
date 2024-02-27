@@ -1,16 +1,17 @@
-from .utility_costs import UtilityCosts
-from .infrastructure_costs import InfrastructureCosts
-from .time_of_use_rates import TimeOfUseRates
-from .load_profile import LoadProfile
-from .solar_panel import SolarPanel
-from .heat_pump import HeatPump
+from utility_costs import UtilityCosts
+from infrastructure_costs import InfrastructureCosts
+from time_of_use_rates import TimeOfUseRates
+from load_profile import LoadProfile
+from solar_panel import SolarPanel
+from heat_pump import HeatPump
 
 class ElectricityCostCalculator:
-    def __init__(self, utility_costs, infrastructure_costs, tou_rates, load_profile, solar_panel=None, heat_pump=None):
+    def __init__(self, utility_costs, infrastructure_costs, tou_rates, load_profile, num_residents, solar_panel=None, heat_pump=None):
         self.utility_costs = utility_costs
         self.infrastructure_costs = infrastructure_costs
         self.tou_rates = tou_rates
         self.load_profile = load_profile
+        self.num_residents = num_residents
         self.solar_panel = solar_panel
         self.heat_pump = heat_pump
 
@@ -39,13 +40,16 @@ class ElectricityCostCalculator:
         # Adjust for heat pump efficiency
         total_cost += heat_pump_consumption * self.tou_rates.average_rate()  # Assuming the same average rate
 
-        # Add utility and infrastructure costs
+        # Costs ($)
         total_cost += utility_annual_cost + infra_return
+        per_person_cost = total_cost / self.num_residents if self.num_residents else 0
 
+        # Consumption (kWh per year)
         net_consumption = total_consumption - solar_generation + heat_pump_consumption
-        return total_cost, net_consumption
+        net_consumption_per_person = net_consumption / self.num_residents if self.num_residents else 0
 
-# Sample constants and inputs
+        return total_cost, per_person_cost, net_consumption, net_consumption_per_person
+
 utility_costs = UtilityCosts(10000)  # $10,000 annual revenue requirement
 infrastructure_costs = InfrastructureCosts(5000, 0.05)  # $5,000 capital with 5% return
 tou_rates = TimeOfUseRates({
@@ -56,7 +60,8 @@ tou_rates = TimeOfUseRates({
     (14, 17): 0.13, 
     (17, 21): 0.20, 
     (21, 24): 0.18
-})
+}) # in $
+
 load_profile = LoadProfile({
     0: 2, 1: 2, 2: 2, 3: 2, 4: 2, 5: 2, 
     6: 4, 7: 4, 
@@ -65,10 +70,18 @@ load_profile = LoadProfile({
     14: 4, 15: 4, 16: 4,
     17: 7, 18: 7, 19: 7, 20: 7,
     21: 5, 22: 5, 23: 5
-})
+}) # in kWh
+
+num_residents = 100 # # of people
 solar_panel = SolarPanel(5, 0.15, {hour: 1 for hour in range(6, 18)})  # 5 kW capacity, 15% efficiency
 heat_pump = HeatPump(3, 1.2, 10)  # COP of 3, insulation factor of 1.2, 10 kWh heating need
 
-calculator = ElectricityCostCalculator(utility_costs, infrastructure_costs, tou_rates, load_profile, solar_panel, heat_pump)
+calculator = ElectricityCostCalculator(utility_costs, infrastructure_costs, tou_rates, load_profile, num_residents, solar_panel, heat_pump)
 
-total_cost, net_consumption = calculator.calculate_electricity_cost()
+total_cost, per_person_cost, net_consumption, net_consumption_per_person = calculator.calculate_electricity_cost()
+
+print("--------------- Annual ----------------")
+print(f"Total Electricity Cost: ${total_cost:,.2f}")
+print(f"Net Consumption: {net_consumption:,.2f} kWh")
+print(f"Cost per Person: ${per_person_cost:,.2f}")
+print(f"Net Consumption per Person: {net_consumption_per_person:,.2f} kWh")

@@ -10,41 +10,27 @@ The Electricity Cost Calculator is a comprehensive tool designed to estimate the
 
 ### Installation Steps
 
-1. **Clone the repository**: Clone the project repository to your local machine using Git.
-
+1. **Clone the repository**:
     ```bash
-    git clone <repository-url>
-    cd <project-directory>
+    git clone git@github.com:antiroyalty/ca-climate-action-initiative.git
     ```
 
-2. **Create a virtual environment** (optional but recommended): This keeps your project dependencies isolated from your global Python installation.
-
+2. **Install dependencies**:
     ```bash
-    python3 -m venv venv
-    source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+    pip install -r requirements.txt
     ```
 
-3. **Install dependencies**: Install the project's required dependencies, including `pytest` for running tests.
-
-    ```bash
-    pip install -r requirements.txt  # Assuming you have a requirements.txt file
+3. **Run the electricity calculation**:\
+    ```python
+    python3 calculations/electricity_cost_calculator.py
     ```
 
-    If you don't have a `requirements.txt`, you can install `pytest` directly:
-
-    ```bash
-    pip install pytest pytest-mock
-    ```
 
 ### Running Tests
 To run the tests with `pytest`, use the following command:
 
 ```bash
 pytest
-```
-For more detailed output, you can use the -v (verbose) option:
-```bash
-pytest -v
 ```
 
 # Documentation
