@@ -1,7 +1,9 @@
 # Intro
-The Electricity Cost Calculator is a comprehensive tool designed to estimate the cost of electricity consumption for residential or commercial properties. It takes into account various factors such as utility costs, infrastructure costs, time-of-use rates, solar panel generation, and the efficiency of heating systems like heat pumps.
+The Electricity Cost Calculator is a tool for estimating the cost of electricity consumption for residential use. It considers utility costs, infrastructure costs, time-of-use rates, solar panel generation, and the efficiency of heating systems like heat pumps.
 
-# Project Setup
+
+
+# Setup
 
 ### Prerequisites
 
