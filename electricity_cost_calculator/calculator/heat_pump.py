@@ -1,8 +1,12 @@
+COP = 3
+INSULATION_FACTOR = 1.2
+HEATING_NEED = 10
+
 class HeatPump:
-    def __init__(self, cop, insulation_factor, heating_need):
-        self.cop = cop
-        self.insulation_factor = insulation_factor
-        self.heating_need = heating_need
+    def __init__(self):
+        self.cop = COP
+        self.insulation_factor = INSULATION_FACTOR
+        self.heating_need = HEATING_NEED
 
     def efficiency_adjustment(self):
         return self.cop * self.insulation_factor

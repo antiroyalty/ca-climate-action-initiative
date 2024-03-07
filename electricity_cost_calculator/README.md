@@ -24,7 +24,13 @@ The Electricity Cost Calculator is a tool for estimating the cost of electricity
 
 3. **Run the electricity calculation**:\
     ```python
-    python3 calculations/electricity_cost_calculator.py
+    $ python3 -m calculator.electricity_cost_calculator
+
+    --------------- Annual ----------------
+    Total Electricity Cost: $16,854.76
+    Net Consumption: 37,513.89 kWh
+    Cost per Person: $168.55
+    Net Consumption per Person: 375.14 kWh
     ```
 
 
@@ -32,7 +38,7 @@ The Electricity Cost Calculator is a tool for estimating the cost of electricity
 To run the tests with `pytest`, use the following command:
 
 ```bash
-pytest
+$ pytest tests/.
 ```
 
 # Documentation

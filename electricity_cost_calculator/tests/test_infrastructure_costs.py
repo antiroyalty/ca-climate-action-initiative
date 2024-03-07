@@ -1,5 +1,5 @@
 import pytest
-from calculator.infrastructure_costs import InfrastructureCosts  # Adjust the import path as needed
+from calculator.infrastructure_costs import InfrastructureCosts
 
 def test_calculate_return():
     # Typical case

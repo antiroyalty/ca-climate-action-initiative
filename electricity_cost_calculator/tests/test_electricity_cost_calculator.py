@@ -38,8 +38,8 @@ def mock_heat_pump(mocker):
 
 def test_calculate_electricity_cost(mock_utility_costs, mock_infrastructure_costs, mock_tou_rates, mock_load_profile, mock_solar_panel, mock_heat_pump):
     calculator = ElectricityCostCalculator(mock_utility_costs, mock_infrastructure_costs, mock_tou_rates, mock_load_profile, mock_solar_panel, mock_heat_pump)
-    total_cost, net_consumption = calculator.calculate_electricity_cost()
-    
+    total_cost, per_person_cost, net_consumption, net_consumption_per_person = calculator.calculate_electricity_cost()
+
     expected_total_cost = 11147.875
     assert total_cost == pytest.approx(expected_total_cost)
     

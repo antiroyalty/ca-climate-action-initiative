@@ -1,5 +1,5 @@
 import pytest
-from calculator.heat_pump import HeatPump  # Adjust the import path as needed
+from calculator.heat_pump import HeatPump
 
 @pytest.fixture
 def sample_heat_pump():

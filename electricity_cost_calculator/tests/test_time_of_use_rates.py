@@ -1,5 +1,5 @@
 import pytest
-from calculator.time_of_use_rates import TimeOfUseRates  # Adjust the import path as needed
+from calculator.time_of_use_rates import TimeOfUseRates
 
 @pytest.fixture
 def tou_rates():
