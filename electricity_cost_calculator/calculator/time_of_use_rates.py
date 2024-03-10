@@ -14,11 +14,9 @@ class TimeOfUseRates:
         self.rates = TOU_RATES
 
     def get_rate(self, hour):
-        # Iterate through the rate periods to find the correct rate for the given hour
         for (start_hour, end_hour), rate in self.rates.items():
             if start_hour <= hour < end_hour:
                 return rate
-        # If no rate is found for the hour, you might raise an exception or return a default rate
         raise ValueError(f"No rate found for hour {hour}")
 
     

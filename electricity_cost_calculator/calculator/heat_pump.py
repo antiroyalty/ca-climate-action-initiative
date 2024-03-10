@@ -21,6 +21,6 @@ class HeatPump:
         return self.cop * self.insulation_factor
 
     def daily_consumption(self):
-        total_consumption = sum(self.daily_heating_profile.values())
+        total_consumption = sum(HEAT_PUMP_PROFILE.values())
         adjusted_consumption = total_consumption / self.efficiency_adjustment()
         return adjusted_consumption

@@ -6,11 +6,10 @@ from .heat_pump import HeatPump
 from .electric_vehicle import ElectricVehicle
 
 class ElectricityCostCalculator:
-    def __init__(self, revenue_requirement, tou_rates, load_profile, num_residents, solar_panel=None, heat_pump=None, ev=None):
+    def __init__(self, revenue_requirement, tou_rates, load_profile, solar_panel=None, heat_pump=None, ev=None):
         self.revenue_requirement = revenue_requirement
         self.tou_rates = tou_rates
         self.load_profile = load_profile
-        self.num_residents = num_residents
         self.solar_panel = solar_panel
         self.heat_pump = heat_pump
         self.ev = ev
@@ -22,7 +21,7 @@ class ElectricityCostCalculator:
         total_cost += self.heat_pump_cost_daily()
         total_cost += self.ev_cost_daily()
 
-        # Todo, add amortized utility revenue requirement... or assume it gets captured in TOU rates?
+        # Todo, add amortized utility revenue requirement... or assume it gets captured in TOU rates
         
         return total_cost
    
@@ -61,7 +60,6 @@ class ElectricityCostCalculator:
     def ev_cost_daily(self):
         return self.ev.daily_energy_consumption() * min(self.tou_rates.rates.values()) if self.ev else 0
 
-num_residents = 100 # # of people
 revenue_requirement = RevenueRequirement() # $
 tou_rates = TimeOfUseRates() # $
 
@@ -74,7 +72,6 @@ calculator = ElectricityCostCalculator(
     revenue_requirement, 
     tou_rates,
     load_profile,
-    num_residents,
     solar_panel,
     heat_pump,
     electric_vehicle

@@ -27,6 +27,6 @@ class RevenueRequirement:
     def operating_costs(self):
         return self.operating_cost_generation + self.operating_cost_transmission + self.operating_cost_distribution
 
-    def calculate_annual_cost(self): # aka revenue requirement
+    def calculate_annual_cost(self): # Revenue Requirement
         # RR = OC_G + OC_T + OC_D + r(K_G + K_T + K_D) + Taxes
         return self.operating_costs() + self.rate_of_return * self.capital_costs() + self.taxes
