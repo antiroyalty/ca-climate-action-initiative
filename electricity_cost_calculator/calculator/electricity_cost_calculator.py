@@ -17,38 +17,33 @@ class ElectricityCostCalculator:
 
     def daily_electricity_cost(self):
         total_cost = 0
+        total_cost += self.load_cost_daily()
+        total_cost += self.solar_panel_cost_daily()
+        total_cost += self.heat_pump_cost_daily()
+        total_cost += self.ev_cost_daily()
+
+        # Todo, add amortized utility revenue requirement... or assume it gets captured in TOU rates?
+        
+        return total_cost
+   
+    def load_cost_daily(self):
+        cost = 0
 
         for hour, usage in self.load_profile.hourly_usage.items():
             rate = self.tou_rates.get_rate(hour)
-            total_cost += rate * usage * 365
-
-        total_cost += self.solar_panel_cost_daily()
-
-        total_cost += self.heat_pump_cost_daily()
-
-        # if self.ev:
-            # ev_annual_consumption = self.ev.daily_energy_consumption() * 365
-            # total_cost += ev_annual_consumption * self.tou_rates.average_rate()
-            # total_cost += ev_annual_consumption * self.tou_rates.average_rate()  # Adjusting for EV consumption
-
-        # Total annual consumption and solar generation
-        # total_consumption = self.load_profile.total_annual_consumption()  # Assuming this method calculates annual consumption
-
-        # Consumption (kWh per year)
-        # net_consumption = total_consumption - solar_generation + heat_pump_consumption + ev_annual_consumption
-        # net_consumption_per_person = net_consumption / self.num_residents if self.num_residents else 0
+            cost += rate * usage
         
-        return total_cost, 0, 0, 0
-   
+        return cost
+    
     def solar_panel_cost_daily(self):
         cost = 0
         
         if self.solar_panel:
-                for hour, gen in self.solar_panel.sunlight_hours.items():
-                    for time_range, rate in self.tou_rates.rates.items():
-                        if time_range[0] <= hour < time_range[1]:
-                            cost += gen * rate
-                        break
+            for hour, gen in self.solar_panel.sunlight_hours.items():
+                for time_range, rate in self.tou_rates.rates.items():
+                    if time_range[0] <= hour < time_range[1]:
+                        cost += gen * rate
+                    break
     
         return (-cost)
 
@@ -62,6 +57,9 @@ class ElectricityCostCalculator:
                         cost += consumption * rate
                         break
         return cost
+    
+    def ev_cost_daily(self):
+        return self.ev.daily_energy_consumption() * min(self.tou_rates.rates.values()) if self.ev else 0
 
 num_residents = 100 # # of people
 revenue_requirement = RevenueRequirement() # $
@@ -82,10 +80,7 @@ calculator = ElectricityCostCalculator(
     electric_vehicle
 )
 
-total_cost, per_person_cost, net_consumption, net_consumption_per_person = calculator.daily_electricity_cost()
+daily_cost = calculator.daily_electricity_cost()
 
 print("--------------- Annual ----------------")
-print(f"Total Electricity Cost: ${total_cost:,.2f}")
-print(f"Net Consumption: {net_consumption:,.2f} kWh")
-print(f"Cost per Person: ${per_person_cost:,.2f}")
-print(f"Net Consumption per Person: {net_consumption_per_person:,.2f} kWh")
+print(f"Daily Electricity Cost: ${daily_cost:,.2f}")
