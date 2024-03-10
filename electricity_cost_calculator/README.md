@@ -68,9 +68,7 @@ project-name/
 ### Class Descriptions
 **ElectricityCostCalculator:** Central class for calculating the overall electricity cost based on various inputs like utility costs, infrastructure costs, time-of-use rates, load profile, and contributions from solar panels and heat pumps.
 
-**UtilityCosts:** Represents utility-related costs, such as annual revenue requirements.
-
-**InfrastructureCosts:** Handles calculations related to infrastructure investment and its return, considering the capital and return rate.
+**RevenueRequirement:** Represents utility-related costs, such as annual revenue requirements.
 
 **TimeOfUseRates:** Manages time-of-use electricity rates, allowing for different rates at different times of the day.
 
@@ -79,3 +77,5 @@ project-name/
 **SolarPanel:** Calculates the energy output of solar panels based on capacity and efficiency.
 
 **HeatPump:** Calculates the energy consumption of heat pumps, considering factors like the coefficient of performance (COP) and insulation.
+
+**ElectricVehicle:** Captures energy consumed by an EV based on vehicle miles travelled and efficiency.

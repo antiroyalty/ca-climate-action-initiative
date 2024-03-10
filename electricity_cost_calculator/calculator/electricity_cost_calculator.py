@@ -62,7 +62,6 @@ class ElectricityCostCalculator:
 
 revenue_requirement = RevenueRequirement() # $
 tou_rates = TimeOfUseRates() # $
-
 load_profile = LoadProfile() # Hours : kWh
 solar_panel = SolarPanel()
 heat_pump = HeatPump()
