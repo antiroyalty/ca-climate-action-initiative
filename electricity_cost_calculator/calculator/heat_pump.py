@@ -11,6 +11,13 @@ HEAT_PUMP_PROFILE = {
     21: 5, 22: 5, 23: 5
 }
 
+from .time_of_use_rates import TimeOfUseRates
+from typing import Union, Literal, Dict
+
+Hour = Union[Literal[0], Literal[1], Literal[2], Literal[3], Literal[4], Literal[5], Literal[6], Literal[7],
+             Literal[8], Literal[9], Literal[10], Literal[11], Literal[12], Literal[13], Literal[14], Literal[15],
+             Literal[16], Literal[17], Literal[18], Literal[19], Literal[20], Literal[21], Literal[22], Literal[23]]
+
 class HeatPump:
     def __init__(self):
         self.cop = COP
@@ -24,3 +31,20 @@ class HeatPump:
         total_consumption = sum(HEAT_PUMP_PROFILE.values())
         adjusted_consumption = total_consumption / self.efficiency_adjustment()
         return adjusted_consumption
+    
+    def calculate_cost(self, tou_rates: TimeOfUseRates) -> Dict[Hour, float]: # hours : dollars HourlyCosts
+        cost = {}
+        for hour, consumption in self.daily_profile.items():
+            for time_range, rate in tou_rates.rates.items():
+                if time_range[0] <= hour < time_range[1]:
+                    cost[hour] = consumption * rate
+                    break
+        return cost
+    
+
+    def calculate_load(self) ->  Dict[Hour, float]: # hours : kWh
+        load = {}
+        for hour, consumption in self.daily_profile.items():
+            load[hour] = float(consumption) / self.efficiency_adjustment()
+        
+        return load

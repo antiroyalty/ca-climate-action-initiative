@@ -10,7 +10,7 @@ def test_get_rate(tou_rates):
     assert tou_rates.get_rate(7) == 0.15
     assert tou_rates.get_rate(13) == 0.14
     assert tou_rates.get_rate(20) == 0.20
-    with pytest.raises(ValueError):  # Adjusted to ValueError for consistency
+    with pytest.raises(ValueError):
         tou_rates.get_rate(24)  # Testing for an hour not covered by the rates
 
 def test_average_rate(tou_rates):
