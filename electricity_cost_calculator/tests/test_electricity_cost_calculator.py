@@ -8,6 +8,7 @@ from calculator.general_load import GeneralLoad
 from calculator.solar_panel import SolarPanel
 from calculator.heat_pump import HeatPump
 from calculator.electric_vehicle import ElectricVehicle
+from calculator.hour import Hour
 
 @pytest.fixture
 def mock_revenue_requirement(mocker):
@@ -16,8 +17,6 @@ def mock_revenue_requirement(mocker):
 @pytest.fixture
 def mock_tou_rates(mocker):
     mock = mocker.Mock(spec=TimeOfUseRates)
-    mock.get_rate = mocker.Mock(side_effect=lambda hour: 0.15 if 0 <= hour < 6 else 0.2)
-    mock.average_rate = mocker.Mock(return_value=0.175)
     mock.rates = {
         (0, 6): 0.10, 
         (6, 8): 0.15, 
@@ -30,51 +29,34 @@ def mock_tou_rates(mocker):
     return mock
 
 @pytest.fixture
-def mock_load_profile(mocker):
-    return mocker.Mock(spec=LoadProfile, total_annual_consumption=mocker.Mock(return_value=3650), hourly_usage={0: 2, 1: 2, 2: 2})
+def mock_general_load(mocker):
+    return mocker.Mock(spec=GeneralLoad, calculate_cost=mocker.Mock(return_value={0: 0.2, 1: 0.2}))
 
 @pytest.fixture
 def mock_solar_panel(mocker):
-    return mocker.Mock(spec=SolarPanel, daily_generation=mocker.Mock(return_value=5), sunlight_hours={
-        0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 1, 7: 2, 8: 3, 9: 4, 10: 5, 11: 6, 12: 7, 13: 7, 14: 6, 15: 5, 16: 4, 17: 3, 18: 2, 19: 0, 20: 0, 21: 0, 22: 0, 23: 0})
+    return mocker.Mock(spec=SolarPanel, calculate_cost=mocker.Mock(return_value={6: -0.1, 7: -0.2}))
 
 @pytest.fixture
 def mock_heat_pump(mocker):
-    return mocker.Mock(spec=HeatPump, energy_consumption=mocker.Mock(return_value=10), daily_profile={
-            0: 2, 1: 2, 2: 2, 3: 2, 4: 2, 5: 2, 
-            6: 4, 7: 4, 
-            8: 3, 9: 3, 10: 3, 11: 3,
-            12: 5, 13: 5,
-            14: 4, 15: 4, 16: 4,
-            17: 7, 18: 7, 19: 7, 20: 7,
-            21: 5, 22: 5, 23: 5
-        })
+    return mocker.Mock(spec=HeatPump, calculate_cost=mocker.Mock(return_value={14: 0.4, 15: 0.5}))
 
 @pytest.fixture
 def mock_electric_vehicle(mocker):
-    return mocker.Mock(spec=ElectricVehicle, daily_energy_consumption=mocker.Mock(return_value=12), )
+    return mocker.Mock(spec=ElectricVehicle, calculate_cost=mocker.Mock(return_value={17: 0.6, 18: 0.7}))
 
-def test_calculate_electricity_cost_without_optional_components(mock_revenue_requirement, mock_tou_rates, mock_load_profile):
-    calculator = ElectricityCostCalculator(mock_revenue_requirement, mock_tou_rates, mock_load_profile)
-    total_cost = calculator.daily_electricity_cost()
-    expected_cost = 0.90
-    assert pytest.approx(total_cost) == expected_cost
+def test_daily_electricity_cost_with_mix_of_load_types(mock_revenue_requirement, mock_tou_rates, mock_general_load, mock_solar_panel, mock_heat_pump, mock_electric_vehicle):
+    calculator = ElectricityCostCalculator(mock_revenue_requirement, mock_tou_rates, mock_general_load, mock_solar_panel, mock_heat_pump, mock_electric_vehicle)
+    daily_cost = calculator.daily_electricity_cost()
+    expected_cost = 2.3
+    assert pytest.approx(daily_cost) == expected_cost
 
-def test_calculate_electricity_cost_with_ev(mock_revenue_requirement, mock_tou_rates, mock_load_profile, mock_solar_panel, mock_heat_pump, mock_electric_vehicle):
-    calculator = ElectricityCostCalculator(mock_revenue_requirement, mock_tou_rates, mock_load_profile, mock_solar_panel, mock_heat_pump, mock_electric_vehicle)
-    total_cost = calculator.daily_electricity_cost()
-    expected_cost = 17.20
-    assert pytest.approx(total_cost) == expected_cost
+def test_aggregate_costs_method_handles_negative_values():
+    calculator = ElectricityCostCalculator(None, None, None)  # No need for actual instances in this test
+    costs = [
+        {0: 0.2, 1: 0.3},
+        {0: -0.1, 1: -0.2}
+    ]
+    aggregated_costs = calculator.aggregate_costs(costs)
+    expected_aggregated_costs = {0: 0.1, 1: 0.1}
+    assert aggregated_costs == pytest.approx(expected_aggregated_costs)
 
-def test_integration_with_real_components():
-    revenue_requirement = RevenueRequirement()
-    tou_rates = TimeOfUseRates()
-    load_profile = LoadProfile()
-    solar_panel = SolarPanel()
-    heat_pump = HeatPump()
-    electric_vehicle = ElectricVehicle()
-
-    calculator = ElectricityCostCalculator(revenue_requirement, tou_rates, load_profile, solar_panel, heat_pump, electric_vehicle)
-    total_cost = calculator.daily_electricity_cost()
-    expected_cost = 31.4
-    assert pytest.approx(total_cost) == expected_cost
