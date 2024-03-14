@@ -4,7 +4,7 @@ import pytest
 from calculator.electricity_cost_calculator import ElectricityCostCalculator
 from calculator.revenue_requirement import RevenueRequirement
 from calculator.time_of_use_rates import TimeOfUseRates
-from calculator.load_profile import LoadProfile
+from calculator.general_load import GeneralLoad
 from calculator.solar_panel import SolarPanel
 from calculator.heat_pump import HeatPump
 from calculator.electric_vehicle import ElectricVehicle

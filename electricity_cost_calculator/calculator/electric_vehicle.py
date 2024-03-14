@@ -2,10 +2,9 @@ EFFICIENCY = 0.3
 DAILY_MILES = 40
 
 from .time_of_use_rates import TimeOfUseRates
-from typing import Union, Literal, Dict
-Hour = Union[Literal[0], Literal[1], Literal[2], Literal[3], Literal[4], Literal[5], Literal[6], Literal[7],
-             Literal[8], Literal[9], Literal[10], Literal[11], Literal[12], Literal[13], Literal[14], Literal[15],
-             Literal[16], Literal[17], Literal[18], Literal[19], Literal[20], Literal[21], Literal[22], Literal[23]]
+from .hour import Hour
+
+from typing import Dict
 
 class ElectricVehicle:
     def __init__(self):
@@ -20,7 +19,7 @@ class ElectricVehicle:
         evenly_spread_charging = self.daily_energy_consumption() * min(tou_rates.rates.values()) / 6 # TODO make this dynamically calculated from min rate
         cost = {}
 
-        for h in hours:
+        for h in range(24):
             if h < 6:
                 cost[h] = evenly_spread_charging
             else:

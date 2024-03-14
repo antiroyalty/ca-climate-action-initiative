@@ -1,4 +1,8 @@
-HOURLY_USAGE = {
+from .time_of_use_rates import TimeOfUseRates
+from .hour import Hour
+from typing import Dict
+
+HOURLY_USAGE : Dict[Hour, int] = {
     0: 2, 1: 2, 2: 2, 3: 2, 4: 2, 5: 2, 
     6: 4, 7: 4, 
     8: 3, 9: 3, 10: 3, 11: 3,
@@ -8,14 +12,7 @@ HOURLY_USAGE = {
     21: 5, 22: 5, 23: 5
 } # in kWh
 
-from .time_of_use_rates import TimeOfUseRates
-from typing import Union, Literal, Dict
-Hour = Union[Literal[0], Literal[1], Literal[2], Literal[3], Literal[4], Literal[5], Literal[6], Literal[7],
-             Literal[8], Literal[9], Literal[10], Literal[11], Literal[12], Literal[13], Literal[14], Literal[15],
-             Literal[16], Literal[17], Literal[18], Literal[19], Literal[20], Literal[21], Literal[22], Literal[23]]
-
-# TODO rename this to be GeneralLoad or something
-class LoadProfile:
+class GeneralLoad:
     def __init__(self):
         self.hourly_usage = HOURLY_USAGE
 
