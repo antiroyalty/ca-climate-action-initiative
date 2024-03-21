@@ -1,4 +1,5 @@
-from .time_of_use_rates import TimeOfUseRates
+from ..rates.time_of_use_rates import TimeOfUseRates
+from ..hour import Hour, to_h
 from typing import Dict
 
 CHARGING_EFFICIENCY = 0.9  # Assuming 90% efficiency
@@ -17,17 +18,20 @@ class ElectricVehicle:
         """Calculate the total energy needed per day, adjusted for charging efficiency."""
         return (self.efficiency * self.daily_miles) / self.charging_efficiency
 
-    def calculate_cost(self, tou_rates: TimeOfUseRates) -> Dict[int, float]:
+    def calculate_cost(self, tou_rates: TimeOfUseRates) -> Dict[Hour, float]:
         """Calculate the cost of charging the vehicle within the charging window."""
         daily_consumption = self.daily_energy_consumption()
         cost_per_hour = daily_consumption * self.efficiency  # Energy consumed per hour
 
-        cost = {}  # Initialize a dictionary to store the cost for each charging hour
+        cost : Dict[Hour, float]= {}
         for hour in range(self.charge_start, self.charge_start + 24):
             adjusted_hour = hour % 24  # Ensure hour wraps around correctly
+            # cursed way
+            # assert sendhour(adjusted_hour)
+
             # Only consider hours within the charging window
             if self.charge_start <= adjusted_hour < self.charge_end:
                 rate = tou_rates.get_rate(adjusted_hour)  # Get the rate for the current hour
-                cost[adjusted_hour] = cost_per_hour * rate  # Calculate and store the cost for this hour
+                cost[to_h(adjusted_hour)] = cost_per_hour * rate  # Calculate and store the cost for this hour
 
         return cost

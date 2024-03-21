@@ -1,10 +1,9 @@
 from .revenue_requirement import RevenueRequirement
-from .time_of_use_rates import TimeOfUseRates
-from .general_load import GeneralLoad
-from .solar_panel import SolarPanel
-from .heat_pump import HeatPump
-from .electric_vehicle import ElectricVehicle
-from .time_of_use_rates import TimeOfUseRates
+from .rates.time_of_use_rates import TimeOfUseRates
+from .loads.general_load import GeneralLoad
+from .loads.solar_panel import SolarPanel
+from .loads.heat_pump import HeatPump
+from .loads.electric_vehicle import ElectricVehicle
 from .hour import Hour
 
 from typing import Protocol, Dict
@@ -29,8 +28,6 @@ class ElectricityCostCalculator:
         
         total_hourly_costs = self.aggregate_costs(costs=all_hourly_costs)
     
-        # Todo, add amortized utility revenue requirement... or assume it gets captured in TOU rates
-        
         return sum(total_hourly_costs.values())
     
     def aggregate_costs(self, costs: list[Dict[Hour, float]]) -> Dict[int, float]:
@@ -42,11 +39,11 @@ class ElectricityCostCalculator:
                 else:
                     aggregated_costs[hour] = cost
         return aggregated_costs
-   
+
 revenue_requirement = RevenueRequirement() # $
 tou_rates = TimeOfUseRates() # $
 general_load = GeneralLoad() # Hours : kWh
-solar_panel = SolarPanel()
+solar_panel = SolarPanel(True)
 heat_pump = HeatPump()
 electric_vehicle = ElectricVehicle()  # 0.3 kWh/mile efficiency, 40 miles daily
 
@@ -58,7 +55,6 @@ calculator = ElectricityCostCalculator(
     heat_pump,
     electric_vehicle
 )
-
 daily_cost = calculator.daily_electricity_cost()
 
 print("--------------- Annual ----------------")

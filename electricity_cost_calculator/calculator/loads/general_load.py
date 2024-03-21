@@ -1,5 +1,5 @@
-from .time_of_use_rates import TimeOfUseRates
-from .hour import Hour
+from ..rates.time_of_use_rates import TimeOfUseRates
+from ..hour import Hour
 from typing import Dict
 
 HOURLY_USAGE : Dict[Hour, int] = {
