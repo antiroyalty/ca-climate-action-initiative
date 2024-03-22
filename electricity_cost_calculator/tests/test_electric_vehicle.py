@@ -1,6 +1,6 @@
 import pytest
-from calculator.electric_vehicle import ElectricVehicle
-from calculator.time_of_use_rates import TimeOfUseRates
+from calculator.loads.electric_vehicle import ElectricVehicle
+from calculator.rates.time_of_use_rates import TimeOfUseRates
 
 @pytest.fixture
 def mock_time_of_use_rates(mocker):

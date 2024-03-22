@@ -1,10 +1,10 @@
 from ..hour import Hour
-from .pge import PGE
+from .pge import E_TOU_B
 
 class TimeOfUseRates:
     def __init__(self):
         # rates should be a dictionary with time ranges as keys and rates as values
-        self.rates = PGE.E_TOU_B["summer"]
+        self.rates = E_TOU_B["summer"]
 
     def get_rate(self, hour):
         for (start_hour, end_hour), rate in self.rates.items():

@@ -1,6 +1,6 @@
 import pytest
-from calculator.general_load import GeneralLoad, HOURLY_USAGE
-from calculator.time_of_use_rates import TimeOfUseRates
+from calculator.loads.general_load import GeneralLoad, HOURLY_USAGE
+from calculator.rates.time_of_use_rates import TimeOfUseRates
 
 @pytest.fixture
 def mock_time_of_use_rates(mocker):

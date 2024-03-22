@@ -1,6 +1,6 @@
 import pytest
-from calculator.heat_pump import HeatPump, COP, INSULATION_FACTOR, HEAT_PUMP_PROFILE
-from calculator.time_of_use_rates import TimeOfUseRates
+from calculator.loads.heat_pump import HeatPump, COP, INSULATION_FACTOR, HEAT_PUMP_PROFILE
+from calculator.rates.time_of_use_rates import TimeOfUseRates
 from calculator.hour import Hour
 
 @pytest.fixture

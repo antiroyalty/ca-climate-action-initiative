@@ -1,5 +1,6 @@
 import pytest
-from calculator.time_of_use_rates import TimeOfUseRates, E_TOU_B
+from calculator.rates.time_of_use_rates import TimeOfUseRates
+from calculator.rates.pge import E_TOU_B
 
 @pytest.fixture
 def tou_rates():

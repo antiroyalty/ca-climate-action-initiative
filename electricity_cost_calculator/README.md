@@ -44,31 +44,23 @@ $ pytest tests/.
 # Documentation
 ### File Structure Overview
 ```bash
-project-name/
+ccai/
 │
-├── calculator/                  # Main package directory
-│   ├── __init__.py              # Initializes the Python package
+├── calculator/                         #  Main package directory
 │   ├── electricity_cost_calculator.py  # Core calculator functionality
-│   ├── utility_costs.py         # Utility cost calculations
-│   ├── infrastructure_costs.py  # Infrastructure cost calculations
-│   ├── time_of_use_rates.py     # Time-of-use rates management
-│   ├── load_profile.py          # User's electricity load profile
-│   ├── solar_panel.py           # Solar panel output calculations
-│   └── heat_pump.py             # Heat pump energy consumption
+│   ├── loads                           # Load types defined (Heat Pump, EV, Solar, General Load)
+│   ├── rates                           # Time-of-use rates management for each utility (PG&E, SCE, SDGE)
+│   ├── hour.py
+│   ├── revenue_requirement.py          # User's electricity load profile
 │
-├── tests/                       # Directory for test files
-│   ├── __init__.py
-│   ├── test_electricity_cost_calculator.py  # Tests for the calculator functionality
-│   └── ...                      # Other test files
+├── tests/                              # Directory for test files
 │
-├── requirements.txt             # Project dependencies
-└── README.md                    # Project overview and setup instructions
+├── requirements.txt                    # Project dependencies
+└── README.md                           # Project overview and setup instructions
 ```
 
 ### Class Descriptions
-**ElectricityCostCalculator:** Central class for calculating the overall electricity cost based on various inputs like utility costs, infrastructure costs, time-of-use rates, load profile, and contributions from solar panels and heat pumps.
-
-**RevenueRequirement:** Represents utility-related costs, such as annual revenue requirements.
+**ElectricityCostCalculator:** Central class for calculating the overall electricity cost based on various inputs like time-of-use rates, general load profile, other major loads like EV and heat pumps, and contributions from residential solar panels.
 
 **TimeOfUseRates:** Manages time-of-use electricity rates, allowing for different rates at different times of the day.
 
