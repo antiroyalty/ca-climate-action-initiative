@@ -27,10 +27,7 @@ The Electricity Cost Calculator is a tool for estimating the cost of electricity
     $ python3 -m calculator.electricity_cost_calculator
 
     --------------- Annual ----------------
-    Total Electricity Cost: $16,854.76
-    Net Consumption: 37,513.89 kWh
-    Cost per Person: $168.55
-    Net Consumption per Person: 375.14 kWh
+    Daily Energy Cost: $168.55
     ```
 
 
@@ -71,3 +68,5 @@ ccai/
 **HeatPump:** Calculates the energy consumption of heat pumps, considering factors like the coefficient of performance (COP) and insulation.
 
 **ElectricVehicle:** Captures energy consumed by an EV based on vehicle miles travelled and efficiency.
+
+![Class Diagram](class-diagram.png)

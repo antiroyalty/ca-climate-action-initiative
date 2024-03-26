@@ -15,4 +15,4 @@ https://www.pge.com/tariffs/assets/pdf/tariffbook/ELEC_SCHEDS_NEM.pdf
 https://www.pge.com/assets/pge/docs/account/billing-and-assistance/nem-billing-faq.pdf
 https://www.cpuc.ca.gov/-/media/cpuc-website/divisions/energy-division/documents/electric-costs/sb-695-reports/2023-sb-695-report_final.pdf
 https://www.cpuc.ca.gov/industries-and-topics/electrical-energy/demand-side-management/customer-generation
-https://www.pge.com/assets/pge/docs/account/rate-plans/residential-electric-rate-plan-pricing.pdf 
+https://www.pge.com/assets/pge/docs/account/rate-plans/residential-electric-rate-plan-pricing.pdf
