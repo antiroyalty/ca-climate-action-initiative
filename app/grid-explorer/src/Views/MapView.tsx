@@ -1,14 +1,16 @@
 // src/views/MapView.tsx
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { loadModules } from 'esri-loader';
-import { Button } from '@chakra-ui/react';
 import '@arcgis/core/assets/esri/themes/light/main.css';
-import './MapView.css';
+import './MapView.css'; // Custom CSS for styling the popup
+import { createFeederLayer } from './layers/createFeederLayer';
+import { createLowCapacityFeederLayer } from './layers/createLowCapacityFeederLayer';
+import { createMapImageLayer } from './layers/createMapImageLayer';
+import { createSubstationsLayer } from './layers/createSubstationsLayer';
 
 const MapView: React.FC = () => {
   const mapRef = useRef<HTMLDivElement>(null);
-  const [mapView, setMapView] = useState<__esri.MapView | null>(null);
-  const [feederLayer, setFeederLayer] = useState<__esri.GeoJSONLayer | null>(null);
+  const layerListRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     loadMap();
@@ -16,23 +18,13 @@ const MapView: React.FC = () => {
 
   const loadMap = async () => {
     const [
-      Map, 
-      MapView, 
-      GeoJSONLayer, 
-      MapImageLayer, 
-      SimpleRenderer, 
-      SimpleLineSymbol, 
-      SimpleMarkerSymbol,
-      PopupTemplate
+      Map,
+      MapView,
+      LayerList
     ] = await loadModules([
       'esri/Map',
       'esri/views/MapView',
-      'esri/layers/GeoJSONLayer',
-      'esri/layers/MapImageLayer',
-      'esri/renderers/SimpleRenderer',
-      'esri/symbols/SimpleLineSymbol',
-      'esri/symbols/SimpleMarkerSymbol',
-      'esri/PopupTemplate'
+      'esri/widgets/LayerList'
     ]);
 
     const map = new Map({
@@ -42,25 +34,25 @@ const MapView: React.FC = () => {
     const view = new MapView({
       container: mapRef.current as HTMLDivElement,
       map: map,
-      center: [-122.2, 37.5], // Longitude, latitude
+      center: [-122.2, 37.5],
       zoom: 9
     });
 
-    const mapImageLayer = createMapImageLayer(MapImageLayer);
-    const feederLayer = createFeederLayer(GeoJSONLayer, SimpleRenderer, SimpleLineSymbol);
-    const substationsLayer = createSubstationsLayer(GeoJSONLayer, SimpleRenderer, SimpleMarkerSymbol, PopupTemplate);
+    const mapImageLayer = await createMapImageLayer();
+    const feederLayer = await createFeederLayer();
+    const substationsLayer = await createSubstationsLayer();
+    const lowCapacityFeederLayer = await createLowCapacityFeederLayer();
 
-    map.add(mapImageLayer);
-    // map.add(feederLayer);
-    map.add(substationsLayer);
+    map.removeAll();
+    map.addMany([mapImageLayer, feederLayer, substationsLayer, lowCapacityFeederLayer]);
 
-    view.popup.autoOpenEnabled = false; // Disable the default popup behavior
+    view.popup.autoOpenEnabled = false;
 
     view.on('click', (event: __esri.ViewClickEvent) => {
       view.hitTest(event).then((response: __esri.HitTestResult) => {
         const results = response.results as __esri.GraphicHit[];
         const substationResult = results.find((result) => result.graphic.layer === substationsLayer);
-        
+
         if (substationResult) {
           const graphic = substationResult.graphic;
           view.popup.open({
@@ -71,83 +63,19 @@ const MapView: React.FC = () => {
       });
     });
 
-    setMapView(view);
-    // setFeederLayer(feederLayer);
-  };
-
-  const createMapImageLayer = (MapImageLayer: typeof __esri.MapImageLayer) => {
-    return new MapImageLayer({
-      url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer'
-    });
-  };
-
-  const createFeederLayer = (
-    GeoJSONLayer: typeof __esri.GeoJSONLayer, 
-    SimpleRenderer: typeof __esri.SimpleRenderer, 
-    SimpleLineSymbol: typeof __esri.SimpleLineSymbol
-  ) => {
-    const lineSymbol = new SimpleLineSymbol({
-      color: [226, 119, 40], // Orange
-      width: 1
+    const layerList = new LayerList({
+      view: view,
     });
 
-    const renderer = new SimpleRenderer({
-      symbol: lineSymbol
+    view.ui.add(layerList, {
+      position: "top-right"
     });
-
-    return new GeoJSONLayer({
-      url: 'geojson/feeder.geojson',
-      title: 'Feeder Detail',
-      renderer: renderer
-    });
-  };
-
-  const createSubstationsLayer = (
-    GeoJSONLayer: typeof __esri.GeoJSONLayer, 
-    SimpleRenderer: typeof __esri.SimpleRenderer, 
-    SimpleMarkerSymbol: typeof __esri.SimpleMarkerSymbol,
-    PopupTemplate: typeof __esri.PopupTemplate
-  ) => {
-    const markerSymbol = new SimpleMarkerSymbol({
-      color: [226, 119, 255], // Purple
-      size: 6
-    });
-
-    const renderer = new SimpleRenderer({
-      symbol: markerSymbol
-    });
-
-    const popupTemplate = new PopupTemplate({
-        title: "{SUBNAME} Substation",
-        content: `
-        <div class="popup-content">
-          <div class="popup-row"><span class="popup-label">Substation ID:</span><span class="popup-value">{SUBSTATIONID}</span></div>
-          <div class="popup-row"><span class="popup-label">Minimum KV:</span><span class="popup-value">{MIN_KV}</span></div>
-          <div class="popup-row"><span class="popup-label">Number of Banks:</span><span class="popup-value">{NUMBANKS}</span></div>
-        </div>
-      `
-    //   <div class="popup-row"><span class="popup-label">Ungrounded Banks:</span><span class="popup-value">{UNGROUNDEDBANKS}</span></div>
-    //   <div class="popup-row"><span class="popup-label">Redacted:</span><span class="popup-value">{REDACTED}</span></div>
-      });
-
-    return new GeoJSONLayer({
-      url: 'geojson/substations.geojson',
-      title: 'Substations',
-      renderer: renderer,
-      popupTemplate: popupTemplate
-    });
-  };
-
-  const toggleFeatureLayer = () => {
-    if (feederLayer) {
-      feederLayer.visible = !feederLayer.visible;
-    }
   };
 
   return (
-    <div>
-      <Button onClick={toggleFeatureLayer}>Toggle Feeder Layer</Button>
-      <div style={{ height: '100vh' }} ref={mapRef}></div>
+    <div style={{ position: 'relative', height: '100vh' }}>
+      <div ref={mapRef} style={{ height: '100%', width: '100%' }}></div>
+      <div ref={layerListRef} className="layer-list"></div>
     </div>
   );
 };
