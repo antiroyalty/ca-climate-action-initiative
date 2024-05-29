@@ -1,0 +1,108 @@
+/* src/views/MapView.css */
+.esri-popup__main-container {
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+  }
+  
+  .esri-popup__header, .esri-popup__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .esri-popup__footer {
+    border-top: 1px solid #ddd;
+    border-bottom: none;
+  }
+  
+  .esri-popup__content {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .popup-content {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .popup-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+  }
+  
+  .popup-label {
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .popup-value {
+    color: #555;
+  }
+  
+  /* Hide "Zoom to" button */
+  .esri-popup__button.esri-popup__action--zoom-to {
+    display: none !important;
+  }
+  
+  /* Hide "1 results" text */
+  .esri-popup__count {
+    display: none !important;
+  }
+  
+  /* Hide "minimize" button */
+  .esri-popup__button--maximize {
+    display: none !important;
+  }
+  
+  /* Align and style the header buttons */
+  .esri-popup__header-buttons {
+    display: flex;
+    align-items: center;
+  }
+  
+  .esri-popup__header-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .esri-popup__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+  }
+  
+  /* Hide excess & unneeded items */
+  .esri-popup__button--dock {
+    display: none !important;
+  }
+
+  .esri-icon-minimize {
+    display: none;
+  }
+
+  .esri-popup__feature-menu {
+    display: none;
+  }
+  
+  .esri-popup__action-text {
+    display: none;
+  }
+
+  .esri-icon-zoom-in-magnifying-glass {
+    display: none;
+  }
+

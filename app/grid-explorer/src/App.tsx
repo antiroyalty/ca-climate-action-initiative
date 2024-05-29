@@ -1,9 +1,12 @@
 import { createRoot } from "react-dom/client";
 import React from 'react';
-import ImageGridView from './Views/ImageGridView';
-import MetricCard from './Views/MetricView';
+
 import { ChakraProvider } from "@chakra-ui/react";
 import { extendTheme } from "@chakra-ui/react";
+
+import ImageGridView from './views/ImageGridView';
+import MetricCard from './views/MetricView';
+import MapView from './views/MapView';
 
 const theme = extendTheme({
   styles: {
@@ -18,17 +21,11 @@ const theme = extendTheme({
 const App: React.FC<{}> = (props) => {
   return (
     <ChakraProvider theme={theme}>
-      <MetricCard />
-      <ImageGridView />
+      {/* <MetricCard /> */}
+      <MapView />
+      {/* <ImageGridView /> */}
     </ChakraProvider>
   );
 };
-
-function main() {
-  const rootNode = document.createElement("div");
-  document.body.appendChild(rootNode);
-  const root = createRoot(rootNode);
-  root.render(<App />);
-}
 
 export default App;
