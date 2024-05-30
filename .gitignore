@@ -3,3 +3,4 @@ __pycache__/
 .DS_Store
 /papers
 /map/data
+/app/grid-explorer/public/geojson/
