@@ -2,8 +2,10 @@
 import { loadModules } from 'esri-loader';
 
 export const createMapImageLayer = async () => {
-  const [MapImageLayer, PopupTemplate] = await loadModules([
+  const [MapImageLayer, SimpleRenderer, SimpleFillSymbol, PopupTemplate] = await loadModules([
     'esri/layers/MapImageLayer',
+    'esri/renderers/SimpleRenderer',
+    'esri/symbols/SimpleFillSymbol',
     'esri/PopupTemplate'
   ]);
 
@@ -19,12 +21,45 @@ export const createMapImageLayer = async () => {
     `
   });
 
+  const citySymbol = new SimpleFillSymbol({
+    color: null,
+    outline: {
+      color: [100, 16, 192, 0.7], // RGBA
+      width: 1
+    }
+  });
+
+  const countySymbol = new SimpleFillSymbol({
+    color: null,
+    outline: {
+      color: [26, 11, 187, 0.7], // RGBA
+      width: 2
+    }
+  });
+
+  const cityRenderer = new SimpleRenderer({
+    symbol: citySymbol
+  });
+
+  const countyRenderer = new SimpleRenderer({
+    symbol: countySymbol
+  });
+
   return new MapImageLayer({
     url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer',
     sublayers: [
       {
-        id: 0,  // Adjust the sublayer id according to the layer of interest
+        title: 'Counties',
+        id: 2,  // Adjust the sublayer id according to https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer
+        visible: true,
+        renderer: countyRenderer,
         popupTemplate: popupTemplate
+      },
+      {
+        title: 'Census Block Groups',
+        id: 1,
+        renderer: cityRenderer,
+        visible: false,
       }
     ]
   });
