@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { loadModules } from 'esri-loader';
 
 interface LegendComponentProps {
@@ -16,22 +16,28 @@ interface LegendComponentProps {
 }
 
 const LegendComponent: React.FC<LegendComponentProps> = ({ view, layers }) => {
+    const [legend, setLegend] = useState<__esri.Legend | null>(null)
+
   useEffect(() => {
     const loadLegend = async () => {
       const [Legend] = await loadModules(['esri/widgets/Legend']);
 
-      const legend = new Legend({
-        view: view,
-        layerInfos: []
-      });
+      if (!legend) {
+        const legend = new Legend({
+            view: view,
+            layerInfos: []
+        });
 
-      view.ui.add(legend, {
-        position: 'bottom-left'
-      });
+        view.ui.add(legend, {
+            position: 'bottom-left'
+        });
+
+        setLegend(legend);
+      }   
     };
 
     loadLegend();
-  }, [view, layers]);
+  }, [view, layers, legend, setLegend]);
 
   return null;
 };

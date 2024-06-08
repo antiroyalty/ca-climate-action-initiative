@@ -23,6 +23,7 @@ const MapView: React.FC = () => {
       const mapImageLayer = await createMapImageLayer();
       const substationsLayer = await createSubstationsLayer();
 
+
       setLayers({
         countyAgeLayer,
         tractAgeLayer,
@@ -36,9 +37,9 @@ const MapView: React.FC = () => {
     };
 
     loadLayers();
-  }, []);
+  }, [setLayers]);
 
-  console.log("re-rendering mapview", layers)
+  console.log("re-rendering mapview", layers, view)
 
   return (
     <div style={{ position: 'relative', height: '100vh' }}>

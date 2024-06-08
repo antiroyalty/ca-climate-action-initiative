@@ -26,52 +26,51 @@ const MapComponent: React.FC<MapComponentProps> = ({ view, setView, layers }) =>
       }
 
       if (view == null) {
-      console.log("loadMap", {layers})
-      const [Map, MapView] = await loadModules(['esri/Map', 'esri/views/MapView']);
+        console.log("loadMap", {layers})
+        const [Map, MapView] = await loadModules(['esri/Map', 'esri/views/MapView']);
 
-      const map = new Map({
-        basemap: 'topo-vector'
-      });
-
-      const view = new MapView({
-        container: mapRef.current as HTMLDivElement,
-        map: map,
-        center: [-122.2, 37.7],
-        zoom: 10
-      });
-
-      map.removeAll();
-
-      map.addMany(Object.values(layers));
-
-      view.popup.autoOpenEnabled = false;
-
-      view.on('click', (event: __esri.ViewClickEvent) => {
-        view.hitTest(event).then((response: __esri.HitTestResult) => {
-          const results = response.results as __esri.GraphicHit[];
-          const featureResult = results.find((result) =>
-            result.graphic.layer === layers.tractIncomeLayer ||
-            result.graphic.layer === layers.tractAgeLayer
-          );
-
-          if (featureResult) {
-            const graphic = featureResult.graphic;
-            view.popup.open({
-              features: [graphic],
-              location: event.mapPoint
-            });
-          }
+        const map = new Map({
+            basemap: 'topo-vector'
         });
-      });
-     } else {
-        // Change visibilities of the layers inside view
-     }
-  
-      
-             
-    
 
-      setView(view);
+        const view = new MapView({
+            container: mapRef.current as HTMLDivElement,
+            map: map,
+            center: [-122.2, 37.7],
+            zoom: 10
+        });
+
+        map.removeAll();
+
+        map.addMany(Object.values(layers));
+
+        view.popup.autoOpenEnabled = false;
+
+        view.on('click', (event: __esri.ViewClickEvent) => {
+            view.hitTest(event).then((response: __esri.HitTestResult) => {
+            const results = response.results as __esri.GraphicHit[];
+            const featureResult = results.find((result) =>
+                result.graphic.layer === layers.tractIncomeLayer ||
+                result.graphic.layer === layers.tractAgeLayer
+            );
+
+            if (featureResult) {
+                const graphic = featureResult.graphic;
+                view.popup.open({
+                features: [graphic],
+                location: event.mapPoint
+                });
+            }
+            });
+        });
+
+        setView(view);
+    } else {
+            // Setting visibility elsewhere already updates the MapView, so we don't need to do anything here.
+            console.log({map: view.map})
+    }
+    
+      
     };
 
     loadMap();

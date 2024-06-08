@@ -76,6 +76,7 @@ interface LayerListComponentProps {
 }
 
 const LayerListComponent: React.FC<LayerListComponentProps> = ({ view, layers, onLayerChecked }) => {
+  console.log("in LayerListComponet", {layers})
   return (
     <Box position="absolute" top="10px" right="10px" p={4} bg="white" boxShadow="md" borderRadius="md">
       <Stack spacing={3}>
