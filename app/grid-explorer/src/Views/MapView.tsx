@@ -1,81 +1,60 @@
-// src/views/MapView.tsx
-import React, { useEffect, useRef } from 'react';
-import { loadModules } from 'esri-loader';
-import '@arcgis/core/assets/esri/themes/light/main.css';
-import './MapView.css'; // Custom CSS for styling the popup
+import React, { useEffect, useState } from 'react';
+import MapComponent from './components/MapComponent';
+import LayerListComponent, { Layers } from './components/LayerListComponent';
+import LegendComponent from './components/LegendComponent';
+// Layers
 import { createFeederLayer } from './layers/createFeederLayer';
 import { createLowCapacityFeederLayer } from './layers/createLowCapacityFeederLayer';
 import { createMapImageLayer } from './layers/createMapImageLayer';
 import { createSubstationsLayer } from './layers/createSubstationsLayer';
+import { createACSMedianAgeLayer } from './layers/createMedianAgeLayer';
+import { createACSMedianIncomeLayer } from './layers/createMedianIncomeLayer';
 
 const MapView: React.FC = () => {
-  const mapRef = useRef<HTMLDivElement>(null);
-  const layerListRef = useRef<HTMLDivElement>(null);
+  const [view, setView] = useState<__esri.MapView | null>(null);
+  const [layers, setLayers] = useState<Layers | null>(null);
 
   useEffect(() => {
-    loadMap();
+    const loadLayers = async () => {
+      const [countyAgeLayer, tractAgeLayer] = await createACSMedianAgeLayer();
+      const [countyIncomeLayer, tractIncomeLayer] = await createACSMedianIncomeLayer();
+      const feederLayer = await createFeederLayer();
+      const lowCapacityFeederLayer = await createLowCapacityFeederLayer();
+      const mapImageLayer = await createMapImageLayer();
+      const substationsLayer = await createSubstationsLayer();
+
+      setLayers({
+        countyAgeLayer,
+        tractAgeLayer,
+        countyIncomeLayer,
+        tractIncomeLayer,
+        feederLayer,
+        lowCapacityFeederLayer,
+        mapImageLayer,
+        substationsLayer,
+      });
+    };
+
+    loadLayers();
   }, []);
 
-  const loadMap = async () => {
-    const [
-      Map,
-      MapView,
-      LayerList
-    ] = await loadModules([
-      'esri/Map',
-      'esri/views/MapView',
-      'esri/widgets/LayerList'
-    ]);
-
-    const map = new Map({
-      basemap: 'topo-vector'
-    });
-
-    const view = new MapView({
-      container: mapRef.current as HTMLDivElement,
-      map: map,
-      center: [-122.2, 37.5],
-      zoom: 9
-    });
-
-    const mapImageLayer = await createMapImageLayer();
-    const feederLayer = await createFeederLayer();
-    const substationsLayer = await createSubstationsLayer();
-    const lowCapacityFeederLayer = await createLowCapacityFeederLayer();
-
-    map.removeAll();
-    map.addMany([mapImageLayer, feederLayer, substationsLayer, lowCapacityFeederLayer]);
-
-    view.popup.autoOpenEnabled = false;
-
-    view.on('click', (event: __esri.ViewClickEvent) => {
-      view.hitTest(event).then((response: __esri.HitTestResult) => {
-        const results = response.results as __esri.GraphicHit[];
-        const substationResult = results.find((result) => result.graphic.layer === substationsLayer);
-
-        if (substationResult) {
-          const graphic = substationResult.graphic;
-          view.popup.open({
-            features: [graphic],
-            location: event.mapPoint
-          });
-        }
-      });
-    });
-
-    const layerList = new LayerList({
-      view: view,
-    });
-
-    view.ui.add(layerList, {
-      position: "top-right"
-    });
-  };
+  console.log("re-rendering mapview", layers)
 
   return (
     <div style={{ position: 'relative', height: '100vh' }}>
-      <div ref={mapRef} style={{ height: '100%', width: '100%' }}></div>
-      <div ref={layerListRef} className="layer-list"></div>
+      <MapComponent setView={setView} />
+      {view && layers && (
+        <>
+          <LayerListComponent view={view} layers={layers} onLayerChecked={(layerName: keyof Layers) => {
+  
+            layers[layerName].visible = !layers[layerName].visible
+            setLayers({...layers})
+     
+          }} />
+          <LegendComponent view={view} layers={layers} />
+
+        </>
+      )}
     </div>
   );
 };
