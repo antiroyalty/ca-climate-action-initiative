@@ -7,16 +7,26 @@ import { createMapImageLayer } from '../layers/createMapImageLayer';
 import { createSubstationsLayer } from '../layers/createSubstationsLayer';
 import { createACSMedianAgeLayer } from '../layers/createMedianAgeLayer';
 import { createACSMedianIncomeLayer } from '../layers/createMedianIncomeLayer';
+import { Layers } from './LayerListComponent';
 
 interface MapComponentProps {
+  view : __esri.MapView | null;  
   setView: React.Dispatch<React.SetStateAction<__esri.MapView | null>>;
+  layers: Layers | null;
 }
 
-const MapComponent: React.FC<MapComponentProps> = ({ setView }) => {
+const MapComponent: React.FC<MapComponentProps> = ({ view, setView, layers }) => {
   const mapRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const loadMap = async () => {
+    const mapImageLayer = await createMapImageLayer();
+      if (!layers) {
+        return
+      }
+
+      if (view == null) {
+      console.log("loadMap", {layers})
       const [Map, MapView] = await loadModules(['esri/Map', 'esri/views/MapView']);
 
       const map = new Map({
@@ -30,15 +40,9 @@ const MapComponent: React.FC<MapComponentProps> = ({ setView }) => {
         zoom: 10
       });
 
-      const mapImageLayer = await createMapImageLayer();
-      const feederLayer = await createFeederLayer();
-      const lowCapacityFeeder = await createLowCapacityFeederLayer();
-      const substationsLayer = await createSubstationsLayer();
-      const [countyAgeLayer, tractAgeLayer] = await createACSMedianAgeLayer();
-      const [countyIncomeLayer, tractIncomeLayer] = await createACSMedianIncomeLayer();
-
       map.removeAll();
-      map.addMany([tractAgeLayer, tractIncomeLayer, lowCapacityFeeder, substationsLayer, mapImageLayer]);
+
+      map.addMany(Object.values(layers));
 
       view.popup.autoOpenEnabled = false;
 
@@ -46,8 +50,8 @@ const MapComponent: React.FC<MapComponentProps> = ({ setView }) => {
         view.hitTest(event).then((response: __esri.HitTestResult) => {
           const results = response.results as __esri.GraphicHit[];
           const featureResult = results.find((result) =>
-            result.graphic.layer === tractIncomeLayer ||
-            result.graphic.layer === tractAgeLayer
+            result.graphic.layer === layers.tractIncomeLayer ||
+            result.graphic.layer === layers.tractAgeLayer
           );
 
           if (featureResult) {
@@ -59,12 +63,19 @@ const MapComponent: React.FC<MapComponentProps> = ({ setView }) => {
           }
         });
       });
+     } else {
+        // Change visibilities of the layers inside view
+     }
+  
+      
+             
+    
 
       setView(view);
     };
 
     loadMap();
-  }, [setView]);
+  }, [view, setView, layers]);
 
   return <div ref={mapRef} style={{ height: '100%', width: '100%' }}></div>;
 };

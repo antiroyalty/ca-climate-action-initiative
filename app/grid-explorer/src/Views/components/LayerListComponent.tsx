@@ -4,14 +4,14 @@
 // interface LayerListComponentProps {
 //   view: __esri.MapView;
 //   layers: {
-//     countyIncomeLayer: Layer;
-//     tractIncomeLayer: Layer;
-//     countyAgeLayer: Layer;
-//     tractAgeLayer: Layer;
-//     feederLayer: Layer;
-//     lowCapacityFeederLayer: Layer;
-//     mapImageLayer: Layer;
-//     substationsLayer: Layer;
+//     countyIncomeLayer: __esri.Layer;
+//     tractIncomeLayer: __esri.Layer;
+//     countyAgeLayer: __esri.Layer;
+//     tractAgeLayer: __esri.Layer;
+//     feederLayer: __esri.Layer;
+//     lowCapacityFeederLayer: __esri.Layer;
+//     mapImageLayer: __esri.Layer;
+//     substationsLayer: __esri.Layer;
 //   };
 // }
 
@@ -49,20 +49,29 @@ export interface Layer {
 }
 
 export interface Layers {
-    countyIncomeLayer: Layer;
-    tractIncomeLayer: Layer;
-    countyAgeLayer: Layer;
-    tractAgeLayer: Layer;
-    feederLayer: Layer;
-    lowCapacityFeederLayer: Layer;
-    mapImageLayer: Layer;
-    substationsLayer: Layer;
+    countyIncomeLayer: __esri.Layer;
+    tractIncomeLayer: __esri.Layer;
+    countyAgeLayer: __esri.Layer;
+    tractAgeLayer: __esri.Layer;
+    feederLayer: __esri.Layer;
+    lowCapacityFeederLayer: __esri.Layer;
+    mapImageLayer: __esri.Layer;
+    substationsLayer: __esri.Layer;
   }
 
   
 interface LayerListComponentProps {
   view: __esri.MapView;
-  layers: Layers;
+  layers: {
+    countyIncomeLayer: __esri.Layer;
+    tractIncomeLayer: __esri.Layer;
+    countyAgeLayer: __esri.Layer;
+    tractAgeLayer: __esri.Layer;
+    feederLayer: __esri.Layer;
+    lowCapacityFeederLayer: __esri.Layer;
+    mapImageLayer: __esri.Layer;
+    substationsLayer: __esri.Layer;
+  };
   onLayerChecked: (layerName: keyof Layers) => void;
 }
 

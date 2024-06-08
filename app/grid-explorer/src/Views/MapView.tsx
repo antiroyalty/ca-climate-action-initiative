@@ -42,7 +42,7 @@ const MapView: React.FC = () => {
 
   return (
     <div style={{ position: 'relative', height: '100vh' }}>
-      <MapComponent setView={setView} />
+      <MapComponent view={view} setView={setView} layers={layers} />
       {view && layers && (
         <>
           <LayerListComponent view={view} layers={layers} onLayerChecked={(layerName: keyof Layers) => {
