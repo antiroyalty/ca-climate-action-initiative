@@ -37,7 +37,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ view, setView, layers }) =>
             container: mapRef.current as HTMLDivElement,
             map: map,
             center: [-122.2, 37.7],
-            zoom: 10
+            zoom: 13
         });
 
         map.removeAll();

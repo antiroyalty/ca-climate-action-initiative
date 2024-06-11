@@ -79,7 +79,7 @@ export const createACSMedianAgeLayer = async () => {
 
   const tractLayer = new FeatureLayer({
     url: 'https://services.arcgis.com/P3ePLMYs2RVChkJx/ArcGIS/rest/services/ACS_Feed_Median_Age/FeatureServer/2',
-    title: 'Census Tract - Median Age',
+    title: 'Median Household Age',
     outFields: ['*'],
     popupTemplate: popupTemplate,
     renderer: renderer,

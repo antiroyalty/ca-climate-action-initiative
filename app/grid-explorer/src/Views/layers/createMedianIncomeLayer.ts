@@ -91,7 +91,7 @@ export const createACSMedianIncomeLayer = async () => {
 
   const tractLayer = new FeatureLayer({
     url: 'https://services.arcgis.com/P3ePLMYs2RVChkJx/ArcGIS/rest/services/ACS_Median_Income_by_Race_and_Age_Selp_Emp_Boundaries/FeatureServer/2',
-    title: 'Census Tract - Median Income',
+    title: 'Median Household Income',
     outFields: ['*'],
     popupTemplate: popupTemplate,
     renderer: renderer,

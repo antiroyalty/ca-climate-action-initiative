@@ -9,6 +9,8 @@ import { createMapImageLayer } from './layers/createMapImageLayer';
 import { createSubstationsLayer } from './layers/createSubstationsLayer';
 import { createACSMedianAgeLayer } from './layers/createMedianAgeLayer';
 import { createACSMedianIncomeLayer } from './layers/createMedianIncomeLayer';
+import { createElectrificationLayers } from './layers/createElectrificationLayers';
+
 
 const MapView: React.FC = () => {
   const [view, setView] = useState<__esri.MapView | null>(null);
@@ -22,6 +24,7 @@ const MapView: React.FC = () => {
       const lowCapacityFeederLayer = await createLowCapacityFeederLayer();
       const mapImageLayer = await createMapImageLayer();
       const substationsLayer = await createSubstationsLayer();
+      const { minElectrificationLayer, midElectrificationLayer, maxElectrificationLayer } = await createElectrificationLayers();
 
 
       setLayers({
@@ -33,6 +36,9 @@ const MapView: React.FC = () => {
         lowCapacityFeederLayer,
         mapImageLayer,
         substationsLayer,
+        minElectrificationLayer,
+        midElectrificationLayer,
+        maxElectrificationLayer,
       });
     };
 
@@ -50,7 +56,6 @@ const MapView: React.FC = () => {
   
             layers[layerName].visible = !layers[layerName].visible
             setLayers({...layers})
-     
           }} />
           <LegendComponent view={view} layers={layers} />
 
