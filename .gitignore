@@ -27,7 +27,7 @@ app/public/geojson/
 app/public/tiles/
 app/public/
 papers/
-map/data/
+backend/data/
 
 # WIP
 electrify-ca-app/
