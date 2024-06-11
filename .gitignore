@@ -1,6 +1,36 @@
-__pycache__/
-.pytest_cache
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/build
+
+# misc
 .DS_Store
-/papers
-/map/data
-/app/grid-explorer/public/geojson/
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# large files
+app/public/geojson/
+app/public/tiles/
+app/public/
+papers/
+map/data/
+
+# WIP
+electrify-ca-app/
+*/__pycache__/
+
+
