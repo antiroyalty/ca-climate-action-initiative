@@ -32,4 +32,5 @@ backend/data/
 electrify-ca-app/
 2024_02(feb)_26_CCA.pptx
 
-
+# keys
+.env
