@@ -23,9 +23,9 @@ yarn-debug.log*
 yarn-error.log*
 
 # large files
-app/public/geojson/
-app/public/tiles/
-app/public/
+map/public/geojson/
+map/public/tiles/
+map/public/
 papers/
 backend/data/
 
