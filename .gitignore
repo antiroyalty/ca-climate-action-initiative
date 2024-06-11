@@ -23,8 +23,8 @@ yarn-debug.log*
 yarn-error.log*
 
 # large files
-map/public/geojson/
-map/public/tiles/
+map-frontend/public/geojson/
+map-frontend/public/tiles/
 papers/
 backend/data/
 
