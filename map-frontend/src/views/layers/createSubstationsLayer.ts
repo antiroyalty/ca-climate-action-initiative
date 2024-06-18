@@ -2,7 +2,8 @@
 import { loadModules } from 'esri-loader';
 
 export const createSubstationsLayer = async () => {
-  const [GeoJSONLayer, SimpleRenderer, SimpleMarkerSymbol, PopupTemplate] = await loadModules([
+  const [FeatureLayer, GeoJSONLayer, SimpleRenderer, SimpleMarkerSymbol, PopupTemplate] = await loadModules([
+    'esri/layers/FeatureLayer',
     'esri/layers/GeoJSONLayer',
     'esri/renderers/SimpleRenderer',
     'esri/symbols/SimpleMarkerSymbol',
@@ -31,10 +32,18 @@ export const createSubstationsLayer = async () => {
     `
   });
 
-  return new GeoJSONLayer({
-    url: 'geojson/substations.geojson',
+  // return new GeoJSONLayer({
+  //   url: 'geojson/substations.geojson',
+  //   title: 'Substations',
+  //   renderer: renderer,
+  //   popupTemplate: popupTemplate
+  // });
+
+  return new FeatureLayer({
+    url: 'https://services2.arcgis.com/iq8zYa0SRsvIFFKz/arcgis/rest/services/pge_substations/FeatureServer/0',
     title: 'Substations',
     renderer: renderer,
-    popupTemplate: popupTemplate
+    popupTemplate: popupTemplate,
+    visible: true
   });
 };

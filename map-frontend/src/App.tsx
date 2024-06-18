@@ -22,7 +22,8 @@ const App: React.FC<{}> = (props) => {
   return (
     <ChakraProvider theme={theme}>
       {/* <MetricCard /> */}
-      <MapView />
+      { <MapView /> }
+      {/* <ZipcodeMapView /> */}
       {/* <ImageGridView /> */}
     </ChakraProvider>
   );

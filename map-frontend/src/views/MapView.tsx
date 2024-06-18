@@ -11,7 +11,6 @@ import { createACSMedianAgeLayer } from './layers/createMedianAgeLayer';
 import { createACSMedianIncomeLayer } from './layers/createMedianIncomeLayer';
 import { createElectrificationLayers } from './layers/createElectrificationLayers';
 
-
 const MapView: React.FC = () => {
   const [view, setView] = useState<__esri.MapView | null>(null);
   const [layers, setLayers] = useState<Layers | null>(null);

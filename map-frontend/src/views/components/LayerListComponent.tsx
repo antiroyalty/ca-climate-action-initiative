@@ -38,13 +38,13 @@ const categorizeLayers = (layers: Layers) => {
 
         ],
         Population: [
+            { key: 'mapImageLayer', layer: layers.mapImageLayer }, // Assuming mapImageLayer is related to climate. Adjust accordingly.
             // { key: 'countyIncomeLayer', layer: layers.countyIncomeLayer },
             { key: 'tractIncomeLayer', layer: layers.tractIncomeLayer },
             // { key: 'countyAgeLayer', layer: layers.countyAgeLayer },
             { key: 'tractAgeLayer', layer: layers.tractAgeLayer },
         ],
         Climate: [
-            { key: 'mapImageLayer', layer: layers.mapImageLayer }, // Assuming mapImageLayer is related to climate. Adjust accordingly.
         ],
     };
 };

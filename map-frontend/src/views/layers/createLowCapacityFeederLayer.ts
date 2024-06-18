@@ -2,7 +2,8 @@
 import { loadModules } from 'esri-loader';
 
 export const createLowCapacityFeederLayer = async () => {
-  const [GeoJSONLayer, SimpleRenderer, SimpleLineSymbol, PopupTemplate] = await loadModules([
+  const [FeatureLayer, GeoJSONLayer, SimpleRenderer, SimpleLineSymbol, PopupTemplate] = await loadModules([
+    'esri/layers/FeatureLayer',
     'esri/layers/GeoJSONLayer',
     'esri/renderers/SimpleRenderer',
     'esri/symbols/SimpleLineSymbol',
@@ -35,4 +36,12 @@ export const createLowCapacityFeederLayer = async () => {
     popupTemplate: popupTemplate,
     visible: false  // Set to false to disable by default
   });
+
+  // return new FeatureLayer({
+  //   url: 'https://services2.arcgis.com/iq8zYa0SRsvIFFKz/arcgis/rest/services/testlayer/FeatureServer/0',
+  //   title: 'Feeders < 100 kW',
+  //   renderer: renderer,
+  //   popupTemplate: popupTemplate,
+  //   visible: true  // Set to false to disable by default
+  // });
 };

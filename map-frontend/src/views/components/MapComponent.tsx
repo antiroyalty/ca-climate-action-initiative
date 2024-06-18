@@ -1,12 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { loadModules } from 'esri-loader';
 import '@arcgis/core/assets/esri/themes/light/main.css';
-import { createFeederLayer } from '../layers/createFeederLayer';
-import { createLowCapacityFeederLayer } from '../layers/createLowCapacityFeederLayer';
 import { createMapImageLayer } from '../layers/createMapImageLayer';
-import { createSubstationsLayer } from '../layers/createSubstationsLayer';
-import { createACSMedianAgeLayer } from '../layers/createMedianAgeLayer';
-import { createACSMedianIncomeLayer } from '../layers/createMedianIncomeLayer';
 import { Layers } from './LayerListComponent';
 
 interface MapComponentProps {

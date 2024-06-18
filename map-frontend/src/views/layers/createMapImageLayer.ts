@@ -1,8 +1,10 @@
 // src/views/layers/createMapImageLayer.ts
 import { loadModules } from 'esri-loader';
+import '../MapView.css'
 
 export const createMapImageLayer = async () => {
-  const [MapImageLayer, SimpleRenderer, SimpleFillSymbol, PopupTemplate] = await loadModules([
+  const [FeatureLayer, MapImageLayer, SimpleRenderer, SimpleFillSymbol, PopupTemplate] = await loadModules([
+    'esri/layers/FeatureLayer',
     'esri/layers/MapImageLayer',
     'esri/renderers/SimpleRenderer',
     'esri/symbols/SimpleFillSymbol',
@@ -24,7 +26,7 @@ export const createMapImageLayer = async () => {
   const citySymbol = new SimpleFillSymbol({
     color: null,
     outline: {
-      color: [100, 16, 192, 0.7], // RGBA
+      color: [100, 16, 192, 1], // RGBA
       width: 1
     }
   });
@@ -47,6 +49,7 @@ export const createMapImageLayer = async () => {
 
   return new MapImageLayer({
     url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer',
+    title: 'County Boundaries',
     sublayers: [
       {
         title: 'Counties',
@@ -63,4 +66,15 @@ export const createMapImageLayer = async () => {
       }
     ]
   });
+
+  // TODO: Ana, consider displaying this as a FeatureLayer if you don't mind the performance hit 
+  // and want to actually show the county stats data in a popup
+  // return new FeatureLayer({
+  //   url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/2',
+  //   title: 'Census Counties',
+  //   outFields: ['*'],
+  //   popupTemplate: popupTemplate,
+  //   renderer: countyRenderer,
+  //   visible: true,
+  // })
 };
