@@ -11,7 +11,11 @@ import { createACSMedianAgeLayer } from './layers/createMedianAgeLayer';
 import { createACSMedianIncomeLayer } from './layers/createMedianIncomeLayer';
 import { createElectrificationLayers } from './layers/createElectrificationLayers';
 
-const MapView: React.FC = () => {
+interface MapViewProps {
+  zipcode: string;
+}
+
+const MapView: React.FC<MapViewProps> = ({ zipcode }) => {
   const [view, setView] = useState<__esri.MapView | null>(null);
   const [layers, setLayers] = useState<Layers | null>(null);
 
@@ -23,8 +27,7 @@ const MapView: React.FC = () => {
       const lowCapacityFeederLayer = await createLowCapacityFeederLayer();
       const mapImageLayer = await createMapImageLayer();
       const substationsLayer = await createSubstationsLayer();
-      const { minElectrificationLayer, midElectrificationLayer, maxElectrificationLayer } = await createElectrificationLayers();
-
+      const { minElectrificationLayer, minElectrificationHalfCustLayer, midElectrificationLayer, maxElectrificationLayer } = await createElectrificationLayers();
 
       setLayers({
         countyAgeLayer,
@@ -36,6 +39,7 @@ const MapView: React.FC = () => {
         mapImageLayer,
         substationsLayer,
         minElectrificationLayer,
+        minElectrificationHalfCustLayer,
         midElectrificationLayer,
         maxElectrificationLayer,
       });
@@ -44,20 +48,21 @@ const MapView: React.FC = () => {
     loadLayers();
   }, [setLayers]);
 
+  console.log("zipcode is ----")
+  console.log(zipcode)
+
   console.log("re-rendering mapview", layers, view)
 
   return (
     <div style={{ position: 'relative', height: '100vh' }}>
-      <MapComponent view={view} setView={setView} layers={layers} />
+      <MapComponent view={view} setView={setView} layers={layers} zipcode={zipcode} />
       {view && layers && (
         <>
           <LayerListComponent view={view} layers={layers} onLayerChecked={(layerName: keyof Layers) => {
-  
             layers[layerName].visible = !layers[layerName].visible
             setLayers({...layers})
           }} />
           <LegendComponent view={view} layers={layers} />
-
         </>
       )}
     </div>
