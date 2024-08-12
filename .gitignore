@@ -27,10 +27,17 @@ map-frontend/public/geojson/
 map-frontend/public/tiles/
 papers/
 backend/data/
+backend/*.csv
+backend/*.geojson
+
+# other projects
+cris/
 
 # WIP
-electrify-ca-app/
 2024_02(feb)_26_CCA.pptx
 
 # keys
 .env
+
+electrify-ca-app/
+
