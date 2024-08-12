@@ -1,0 +1,21 @@
+{
+    "90210": {
+      "zipCode": "90210",
+      "placeName": "Beverly Hills",
+      "stateCode": "CA",
+      "utility": "PGE"
+    },
+    "90001": {
+      "zipCode": "90001",
+      "placeName": "Los Angeles",
+      "stateCode": "CA",
+      "utility": "SCE"
+    },
+    "92101": {
+      "zipCode": "92101",
+      "placeName": "San Diego",
+      "stateCode": "CA",
+      "utility": "SDGE"
+    }
+  }
+  

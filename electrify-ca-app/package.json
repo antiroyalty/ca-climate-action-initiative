@@ -1,0 +1,67 @@
+{
+  "name": "hvac-math",
+  "version": "0.0.1",
+  "description": "A library for modeling costs of electrification in California. Solar, storage, heat pumps, etc.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "typecheck": "tsc --noEmit",
+    "start": "node scripts/esbuild.dev.mjs",
+    "build": "node scripts/esbuild.prod.mjs"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.ts?$": "ts-jest"
+    },
+    "testRegex": "\\.test\\.ts?$",
+    "collectCoverageFrom": [
+      "**/*.{ts}",
+      "!**/*.d.{ts}"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "js",
+      "json"
+    ]
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@chakra-ui/icons": "2.1.1",
+    "@chakra-ui/react": "2.8.2",
+    "@emotion/react": "11.11.4",
+    "@emotion/styled": "11.11.0",
+    "@types/d3-scale-chromatic": "3.0.3",
+    "@types/jest": "^29.5.11",
+    "@types/luxon": "3.4.2",
+    "@visx/axis": "3.8.0",
+    "@visx/curve": "^3.3.0",
+    "@visx/event": "3.3.0",
+    "@visx/grid": "3.5.0",
+    "@visx/group": "3.3.0",
+    "@visx/legend": "3.5.0",
+    "@visx/pattern": "3.3.0",
+    "@visx/scale": "3.5.0",
+    "@visx/shape": "3.5.0",
+    "@visx/text": "3.3.0",
+    "@visx/tooltip": "3.3.0",
+    "d3-scale-chromatic": "3.0.0",
+    "framer-motion": "11.0.8",
+    "jest": "29.7.0",
+    "jotai": "^2.7.0",
+    "jotai-effect": "0.6.0",
+    "posthog-js": "1.128.1",
+    "ts-jest": "29.1.2"
+  },
+  "dependencies": {
+    "@types/react": "18.2.55",
+    "@types/react-dom": "18.2.19",
+    "chart.js": "^4.4.3",
+    "chartjs-plugin-annotation": "^3.0.1",
+    "esbuild": "0.20.0",
+    "luxon": "3.4.4",
+    "react": "18.2.0",
+    "react-chartjs-2": "^5.2.0",
+    "react-dom": "18.2.0"
+  }
+}
