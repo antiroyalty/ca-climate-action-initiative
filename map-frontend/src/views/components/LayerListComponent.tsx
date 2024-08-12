@@ -16,6 +16,7 @@ export interface Layers {
     mapImageLayer: __esri.Layer;
     substationsLayer: __esri.Layer;
     minElectrificationLayer: __esri.Layer;
+    minElectrificationHalfCustLayer: __esri.Layer;
     midElectrificationLayer: __esri.Layer;
     maxElectrificationLayer: __esri.Layer;
 }
@@ -33,6 +34,7 @@ const categorizeLayers = (layers: Layers) => {
             // { key: 'feederLayer', layer: layers.feederLayer },
             { key: 'lowCapacityFeederLayer', layer: layers.lowCapacityFeederLayer },
             { key: 'minElectrificationLayer', layer: layers.minElectrificationLayer },
+            { key: 'minElectrificationHalfCustLayer', layer: layers.minElectrificationHalfCustLayer },
             { key: 'midElectrificationLayer', layer: layers.midElectrificationLayer },
             { key: 'maxElectrificationLayer', layer: layers.maxElectrificationLayer },
 

@@ -32,13 +32,6 @@ export const createSubstationsLayer = async () => {
     `
   });
 
-  // return new GeoJSONLayer({
-  //   url: 'geojson/substations.geojson',
-  //   title: 'Substations',
-  //   renderer: renderer,
-  //   popupTemplate: popupTemplate
-  // });
-
   return new FeatureLayer({
     url: 'https://services2.arcgis.com/iq8zYa0SRsvIFFKz/arcgis/rest/services/pge_substations/FeatureServer/0',
     title: 'Substations',
