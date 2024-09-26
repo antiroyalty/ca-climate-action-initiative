@@ -1,7 +1,6 @@
 import React from "react";
 import { NumericFormInputView } from "../forms";
-import { floorSpaceSqFtAtom } from "../../app-state/config-state";
-import { useAtomAndTrack } from "../../analytics";
+import { floorSpaceSqFtAtom } from "../../app-state/inputs/input-state";
 
 const FloorSpaceInput: React.FC = () => {
   const [floorSpaceSqFt, setFloorSpaceSqFt, track] = useAtomAndTrack(

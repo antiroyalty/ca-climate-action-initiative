@@ -9,21 +9,24 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { useAtomValue, useSetAtom } from "jotai";
-import {
-  floorSpaceSqFtAtom,
+import { 
   zipCodeAtom,
+  floorSpaceSqFtAtom
+ } from "../app-state/inputs/input-state"
+import {
   welcomeFormHasBeenSubmitAtom,
 } from "../app-state/config-state";
 import { locationInfoAtom } from "../app-state/ca-weather-state";
 import { buildingGeometryAtom } from "../app-state/loads-state";
 import { FormSectionView, FormRow } from "./forms";
 import {
-  ZipCodeInput,
-  FloorSpaceInput,
   HomeHeatingTypeSelect,
   OtherGasAppliancesSelect,
 } from "./inputs/inputs";
-import { trackEvent } from "../analytics";
+
+import {
+  ZipCodeInput
+} from "../views/inputs/zipcode"
 
 const WelcomeFormView: React.FC = () => {
   const setWelcomeFormHasBeenSubmit = useSetAtom(welcomeFormHasBeenSubmitAtom);
@@ -38,8 +41,8 @@ const WelcomeFormView: React.FC = () => {
       <Stack spacing={"20px"}>
         <FormSectionView title="About your home">
           <FormRow>
-            <ZipCodeInput />
-            <FloorSpaceInput />
+            {/* <ZipCodeInput /> */}
+            {/* <FloorSpaceInput /> */}
           </FormRow>
           <HomeHeatingTypeSelect
             label="My home is heated with"
@@ -72,7 +75,6 @@ const WelcomeFormView: React.FC = () => {
             console.log(`zipCode: ${locationInfo.zipCode}`); // Log the zip code
             console.log(`buildingGeometry: ${buildingGeometry}`);
             setWelcomeFormHasBeenSubmit(true);
-            // trackEvent("welcomeForm__submit");
             setWelcomeFormHasBeenSubmit(true);
           }}
         >

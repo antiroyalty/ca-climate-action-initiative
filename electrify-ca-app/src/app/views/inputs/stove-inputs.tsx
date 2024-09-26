@@ -28,7 +28,7 @@ const StoveInputs: React.FC = () => {
   const [stoveEnabled, setStoveEnabled] = useAtom(stoveEnabledAtom);
 
   return (
-    <Accordion allowToggle>
+    <Accordion defaultIndex={[0]} allowToggle>
       <AccordionItem>
         <AccordionButton>
           <Box flex="1" textAlign="left" fontSize="xl" fontWeight="bold">

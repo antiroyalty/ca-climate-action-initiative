@@ -34,7 +34,7 @@ const SolarInputs: React.FC = () => {
   const [solarPanelCapacity, setSolarPanelCapacity] = useAtom(solarPanelCapacityAtom);
 
   return (
-    <Accordion allowToggle>
+    <Accordion defaultIndex={[0]} allowToggle>
       <AccordionItem>
         <AccordionButton>
           <Box flex="1" textAlign="left" fontSize="xl" fontWeight="bold">
@@ -55,7 +55,7 @@ const SolarInputs: React.FC = () => {
                 </Text>
               </Checkbox>
           </FormRow>
-          <FormRow>
+          {/* <FormRow>
             <Box width="full">
               <Text mb={2}>Solar Panel Capacity, Total (kW): {solarPanelCapacity}</Text>
               <Slider
@@ -73,7 +73,7 @@ const SolarInputs: React.FC = () => {
                 <SliderThumb />
               </Slider>
             </Box>
-          </FormRow>
+          </FormRow> */}
           {/* <FormRow>
             <NumericFormInputView
               label="Solar equipment cost"

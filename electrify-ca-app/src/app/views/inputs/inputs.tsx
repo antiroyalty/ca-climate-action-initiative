@@ -14,6 +14,7 @@ import {
 import { NumericFormInputView, FormSelect, FormInput } from "../forms";
 import React, { useEffect, useRef } from "react";
 import { Stack } from "@chakra-ui/react";
+import { useAtomAndTrack } from "../../analytics";
 
 export const HeatPumpInstallCostInput: React.FC = () => {
   const [heatpumpInstallCost, setHeatpumpInstallCost, track] = useAtomAndTrack(

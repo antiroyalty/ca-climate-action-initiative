@@ -34,7 +34,7 @@ const StorageInputs: React.FC = () => {
   const [batteryCapacity, setBatteryCapacity] = useAtom(batteryCapacityAtom);
 
   return (
-    <Accordion allowToggle>
+    <Accordion defaultIndex={[0]} allowToggle>
       <AccordionItem>
         <AccordionButton>
           <Box flex="1" textAlign="left" fontSize="xl" fontWeight="bold">

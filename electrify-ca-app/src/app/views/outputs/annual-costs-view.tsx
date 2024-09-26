@@ -31,6 +31,8 @@ const AnnualCostsCardView: React.FC = () => {
     range: [0, width],
   });
 
+  console.log("Annual costs view updated")
+
   return (
     <InfoCardView title={"Annual Electricity Costs"}>
       <Heading>Annual Costs: ${(summerCosts + winterCosts).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Heading>

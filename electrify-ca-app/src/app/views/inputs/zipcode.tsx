@@ -50,7 +50,7 @@ const ZipCodeInput: React.FC = () => {
       <Flex align="center">
         <Input
           id="zipcode"
-          placeholder="94708"
+          placeholder="94705"
           value={zipCode ?? ""}
           onChange={(ev) => {
             const value = ev.currentTarget.value;

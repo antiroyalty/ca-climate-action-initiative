@@ -28,7 +28,7 @@ const HeatPumpInputs: React.FC = () => {
   const [heatpumpEnabled, setHeatPumpEnabled] = useAtom(heatpumpEnabledAtom);
 
   return (
-    <Accordion allowToggle>
+    <Accordion defaultIndex={[0]} allowToggle>
       <AccordionItem>
         <AccordionButton>
           <Box flex="1" textAlign="left" fontSize="xl" fontWeight="bold">

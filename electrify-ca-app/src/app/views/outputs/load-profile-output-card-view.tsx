@@ -27,6 +27,9 @@ ChartJS.register(
 );
 
 const LoadProfileOutputCardView: React.FC = () => {
+  // baseload
+  const [baseLoadProfile] = useAtom(getLoadProfileAtom("base"));
+  // cumulative
   const [cumulativeLoadProfile] = useAtom(getCumulativeLoadProfileAtom);
   // solar
   const [solarLoadProfile] = useAtom(getLoadProfileAtom("solar"));
@@ -43,8 +46,15 @@ const LoadProfileOutputCardView: React.FC = () => {
 
   const chartData = useMemo(() => {
     const datasets = [
+      // Add baseload
       {
-        label: 'Combined Load Profile',
+        label: 'Base Load Profile',
+        data: baseLoadProfile,
+        borderColor: 'black',
+        fill: false
+      },
+      {
+        label: 'Cumulative Load Profile',
         data: cumulativeLoadProfile,
         borderColor: 'green',
         fill: false,
