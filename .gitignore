@@ -22,6 +22,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# build artefacts
+electrify-ca-app/static/
+
 # large files
 map-frontend/public/geojson/
 map-frontend/public/tiles/
