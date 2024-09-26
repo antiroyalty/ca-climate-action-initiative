@@ -27,12 +27,11 @@ map-frontend/public/geojson/
 map-frontend/public/tiles/
 papers/
 backend/data/
-backend/*.csv
-backend/*.geojson
 
 # Specific inputs or outputs
 backend/adapters/iou/**/*.csv
 backend/adapters/iou/**/*.geojson
+backend/adapters/sam/**/*.csv
 
 # other projects
 cris/
