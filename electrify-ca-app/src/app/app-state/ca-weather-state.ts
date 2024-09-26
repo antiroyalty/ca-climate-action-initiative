@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { zipCodeAtom } from "./outputs/climatezone-state";
+import { zipCodeAtom } from "../app-state/inputs/input-state";
 import { fetchJSON } from "../fetch";
 import { BinnedTemperatures, JSONBackedHourlyWeatherSource, WeatherSource } from "../../lib/weather";
 import { asyncAtomOrNull } from "./utils";
