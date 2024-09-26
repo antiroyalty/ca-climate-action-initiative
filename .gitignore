@@ -22,7 +22,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# build artefacts
+# build artifacts
 electrify-ca-app/static/
 
 # large files
