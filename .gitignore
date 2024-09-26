@@ -31,6 +31,10 @@ map-frontend/public/tiles/
 papers/
 backend/data/
 
+# not yet tracked
+backend/adapters/nrel/
+backend/helpers/
+
 # Specific inputs or outputs
 backend/adapters/iou/**/*.csv
 backend/adapters/iou/**/*.geojson
