@@ -29,7 +29,10 @@ papers/
 backend/data/
 backend/*.csv
 backend/*.geojson
-backend/adapters/iou/sdge/sdge_Load_Capacity_MW__LCA__NDA_-5834481280674565521.geojson
+
+# Specific inputs or outputs
+backend/adapters/iou/**/*.csv
+backend/adapters/iou/**/*.geojson
 
 # other projects
 cris/
