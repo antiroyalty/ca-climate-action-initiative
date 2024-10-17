@@ -39,6 +39,7 @@ backend/helpers/
 backend/adapters/iou/**/*.csv
 backend/adapters/iou/**/*.geojson
 backend/adapters/sam/**/*.csv
+backend/adapters/sam/**/*.parquet
 
 # other projects
 cris/
