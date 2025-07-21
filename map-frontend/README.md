@@ -1,46 +1,116 @@
-# Getting Started with Create React App
+# California Grid Explorer
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Interactive mapping application for exploring California's electrical grid infrastructure, demographics, and electrification scenarios for research and policy analysis.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **Interactive ArcGIS-based mapping** with multiple data layers
+- **Real-time analytics dashboard** showing infrastructure and demographic metrics
+- **Multiple visualization layers** including:
+  - Electrical substations and feeders
+  - Census demographic data (income, age)
+  - Grid capacity and electrification scenarios
+- **ZIP code-based navigation** with automatic geocoding
+- **Layer management** with toggle controls and legends
 
-### `npm start`
+## Prerequisites
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- Node.js 16 or higher
+- npm or yarn package manager
+- ArcGIS API key (for geocoding and some data layers)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Setup & Installation
 
-### `npm test`
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd map-frontend
+   ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-### `npm run build`
+3. **Environment configuration**
+   Create a `.env` file in the root directory:
+   ```
+   REACT_APP_ARCGIS_API_KEY=your_arcgis_api_key_here
+   ```
+   
+   To get an ArcGIS API key:
+   - Visit [ArcGIS Developers](https://developers.arcgis.com/)
+   - Create a free account
+   - Generate an API key with geocoding permissions
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+4. **Start development server**
+   ```bash
+   npm start
+   ```
+   
+   The application will open at [http://localhost:3000](http://localhost:3000)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Development Commands
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- `npm start` - Start development server with hot reload
+- `npm test` - Run test suite in watch mode
+- `npm run build` - Build optimized production bundle
+- `npm run eject` - Eject from Create React App (irreversible)
 
-### `npm run eject`
+## Project Structure
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```
+src/
+├── views/
+│   ├── components/           # Reusable map components
+│   │   ├── MapComponent.tsx     # Core ArcGIS map setup
+│   │   ├── LayerListComponent.tsx   # Layer visibility controls
+│   │   ├── LegendComponent.tsx      # Map legend display
+│   │   └── AnalyticsDashboard.tsx   # Real-time analytics panel
+│   ├── layers/              # Data layer creation functions
+│   │   ├── createFeederLayer.ts     # Electrical feeder data
+│   │   ├── createSubstationsLayer.ts # Substation locations
+│   │   ├── createMedianIncomeLayer.ts # Census income data
+│   │   └── ...
+│   ├── MapView.tsx          # Main map interface
+│   ├── ZipcodeView.tsx      # ZIP code input screen
+│   └── ...
+├── App.tsx                  # Root component with routing logic
+└── ...
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Data Sources
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- **ArcGIS Feature Services** for geographic data layers
+- **U.S. Census ACS** for demographic information
+- **PG&E Infrastructure Data** for electrical grid components
+- **Custom GeoJSON** files for specialized datasets
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Key Technologies
 
-## Learn More
+- **React 18** with TypeScript
+- **ArcGIS JavaScript API 4.x** via esri-loader
+- **Chakra UI** for component styling
+- **Create React App** for build tooling
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Analytics Dashboard
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+The analytics dashboard provides real-time metrics for the current map view:
+
+- **Infrastructure metrics**: Substation counts, grid capacity analysis
+- **Demographic analysis**: Income distribution, population estimates
+- **Equity metrics**: Infrastructure density by income level
+- **Spatial coverage**: Area, counties, and ZIP codes in view
+
+Analytics update automatically as you pan and zoom the map.
+
+## Development Tips
+
+1. **Layer Development**: New data layers go in `src/views/layers/` and should follow the async function pattern returning ArcGIS layer objects
+
+2. **Environment Variables**: All config should use `REACT_APP_` prefix to be available in the browser
+
+3. **TypeScript**: The project uses strict TypeScript - include type definitions for new components
+
+4. **Performance**: Large datasets are loaded asynchronously and can be toggled on/off to maintain map performance
+
