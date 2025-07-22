@@ -7,18 +7,18 @@ export interface Layer {
 }
 
 export interface Layers {
-    countyIncomeLayer: __esri.Layer;
-    tractIncomeLayer: __esri.Layer;
-    countyAgeLayer: __esri.Layer;
-    tractAgeLayer: __esri.Layer;
-    feederLayer: __esri.Layer;
-    lowCapacityFeederLayer: __esri.Layer;
-    mapImageLayer: __esri.Layer;
-    substationsLayer: __esri.Layer;
-    minElectrificationLayer: __esri.Layer;
-    minElectrificationHalfCustLayer: __esri.Layer;
-    midElectrificationLayer: __esri.Layer;
-    maxElectrificationLayer: __esri.Layer;
+    countyIncomeLayer: __esri.FeatureLayer;
+    tractIncomeLayer: __esri.FeatureLayer;
+    countyAgeLayer: __esri.FeatureLayer;
+    tractAgeLayer: __esri.FeatureLayer;
+    feederLayer: __esri.GeoJSONLayer;
+    lowCapacityFeederLayer: __esri.GeoJSONLayer;
+    mapImageLayer: __esri.MapImageLayer;
+    substationsLayer: __esri.FeatureLayer;
+    minElectrificationLayer: __esri.FeatureLayer;
+    minElectrificationHalfCustLayer: __esri.FeatureLayer;
+    midElectrificationLayer: __esri.FeatureLayer;
+    maxElectrificationLayer: __esri.FeatureLayer;
 }
 
 interface LayerListComponentProps {
@@ -32,9 +32,9 @@ const categorizeLayers = (layers: Layers) => {
         Utility: [
             { key: 'substationsLayer', layer: layers.substationsLayer },
             // { key: 'feederLayer', layer: layers.feederLayer },
-            { key: 'lowCapacityFeederLayer', layer: layers.lowCapacityFeederLayer },
+            // { key: 'lowCapacityFeederLayer', layer: layers.lowCapacityFeederLayer },
             { key: 'minElectrificationLayer', layer: layers.minElectrificationLayer },
-            { key: 'minElectrificationHalfCustLayer', layer: layers.minElectrificationHalfCustLayer },
+            // { key: 'minElectrificationHalfCustLayer', layer: layers.minElectrificationHalfCustLayer },
             { key: 'midElectrificationLayer', layer: layers.midElectrificationLayer },
             { key: 'maxElectrificationLayer', layer: layers.maxElectrificationLayer },
 

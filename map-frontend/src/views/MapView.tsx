@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import MapComponent from './components/MapComponent';
 import LayerListComponent, { Layers } from './components/LayerListComponent';
 import LegendComponent from './components/LegendComponent';
+import AnalyticsDashboard from './components/AnalyticsDashboard';
 // Layers
 import { createFeederLayer } from './layers/createFeederLayer';
 import { createLowCapacityFeederLayer } from './layers/createLowCapacityFeederLayer';
@@ -63,6 +64,7 @@ const MapView: React.FC<MapViewProps> = ({ zipcode }) => {
             setLayers({...layers})
           }} />
           <LegendComponent view={view} layers={layers} />
+          <AnalyticsDashboard view={view} layers={layers} zipcode={zipcode} />
         </>
       )}
     </div>
