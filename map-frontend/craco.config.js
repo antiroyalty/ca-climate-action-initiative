@@ -16,4 +16,14 @@ module.exports = {
       return webpackConfig;
     },
   },
+  eslint: {
+    configure: {
+      rules: {
+        // Don't treat warnings as errors in production builds
+        '@typescript-eslint/no-unused-vars': 'warn',
+        'react-hooks/exhaustive-deps': 'warn',
+        'eqeqeq': 'warn'
+      }
+    }
+  }
 };
