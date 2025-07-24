@@ -79,7 +79,8 @@ const MapComponent: React.FC<MapComponentProps> = ({ view, setView, layers, zipc
             const featureResult = results.find(
               (result) =>
                 result.graphic.layer === layers.tractIncomeLayer ||
-                result.graphic.layer === layers.tractAgeLayer
+                result.graphic.layer === layers.tractAgeLayer ||
+                result.graphic.layer === layers.substationsLayer
             );
 
             if (featureResult) {

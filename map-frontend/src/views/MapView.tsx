@@ -3,6 +3,7 @@ import MapComponent from './components/MapComponent';
 import LayerListComponent, { Layers } from './components/LayerListComponent';
 import LegendComponent from './components/LegendComponent';
 import AnalyticsDashboard from './components/AnalyticsDashboard';
+import SearchBar from './components/SearchBar';
 // Layers
 import { createFeederLayer } from './layers/createFeederLayer';
 import { createLowCapacityFeederLayer } from './layers/createLowCapacityFeederLayer';
@@ -19,6 +20,7 @@ interface MapViewProps {
 const MapView: React.FC<MapViewProps> = ({ zipcode }) => {
   const [view, setView] = useState<__esri.MapView | null>(null);
   const [layers, setLayers] = useState<Layers | null>(null);
+  const [currentLocation, setCurrentLocation] = useState<{latitude: number, longitude: number} | null>(null);
 
   useEffect(() => {
     const loadLayers = async () => {
@@ -49,6 +51,17 @@ const MapView: React.FC<MapViewProps> = ({ zipcode }) => {
     loadLayers();
   }, [setLayers]);
 
+  // Handle search location selection
+  const handleLocationSelect = (location: {latitude: number, longitude: number}, address: string) => {
+    setCurrentLocation(location);
+    if (view) {
+      view.goTo({
+        center: [location.longitude, location.latitude],
+        zoom: 15
+      });
+    }
+  };
+
   console.log("zipcode is ----")
   console.log(zipcode)
 
@@ -57,6 +70,18 @@ const MapView: React.FC<MapViewProps> = ({ zipcode }) => {
   return (
     <div style={{ position: 'relative', height: '100vh' }}>
       <MapComponent view={view} setView={setView} layers={layers} zipcode={zipcode} />
+      
+      {/* Search Bar */}
+      <div style={{ 
+        position: 'absolute', 
+        top: '20px', 
+        left: '50%', 
+        transform: 'translateX(-50%)', 
+        zIndex: 1002 
+      }}>
+        <SearchBar onLocationSelect={handleLocationSelect} />
+      </div>
+
       {view && layers && (
         <>
           <LayerListComponent view={view} layers={layers} onLayerChecked={(layerName: keyof Layers) => {
