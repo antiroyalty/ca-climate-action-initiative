@@ -33,7 +33,7 @@ export const createElectrificationLayers = async () => {
       `
     });
 
-    if (type == 'geojson') {
+    if (type === 'geojson') {
       return new GeoJSONLayer({
         url: url,
         title: title,

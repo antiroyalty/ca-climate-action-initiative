@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { loadModules } from 'esri-loader';
 import '@arcgis/core/assets/esri/themes/light/main.css';
-import { createMapImageLayer } from '../layers/createMapImageLayer';
 import { Layers } from './LayerListComponent';
 
 interface MapComponentProps {
@@ -66,7 +65,6 @@ const MapComponent: React.FC<MapComponentProps> = ({ view, setView, layers, zipc
         console.log('Loading map with coordinates:', { latitude, longitude });
         console.log('Layers available:', !!layers);
         
-        const mapImageLayer = await createMapImageLayer();
         if (!layers) {
           console.error('No layers available for map loading');
           return;
@@ -76,40 +74,40 @@ const MapComponent: React.FC<MapComponentProps> = ({ view, setView, layers, zipc
           console.log('Creating new map view with layers:', Object.keys(layers));
           const [Map, MapView] = await loadModules(['esri/Map', 'esri/views/MapView']);
 
-        const map = new Map({
-          basemap: 'topo-vector'
-        });
-
-        const mapView = new MapView({
-          container: mapRef.current as HTMLDivElement,
-          map: map,
-          center: [longitude, latitude],
-          zoom: 13
-        });
-
-        map.removeAll();
-        map.addMany(Object.values(layers));
-        mapView.popup.autoOpenEnabled = false;
-
-        mapView.on('click', (event: __esri.ViewClickEvent) => {
-          mapView.hitTest(event).then((response: __esri.HitTestResult) => {
-            const results = response.results as __esri.GraphicHit[];
-            const featureResult = results.find(
-              (result) =>
-                result.graphic.layer === layers.tractIncomeLayer ||
-                result.graphic.layer === layers.tractAgeLayer ||
-                result.graphic.layer === layers.substationsLayer
-            );
-
-            if (featureResult) {
-              const graphic = featureResult.graphic;
-              mapView.popup.open({
-                features: [graphic],
-                location: event.mapPoint
-              });
-            }
+          const map = new Map({
+            basemap: 'topo-vector'
           });
-        });
+
+          const mapView = new MapView({
+            container: mapRef.current as HTMLDivElement,
+            map: map,
+            center: [longitude, latitude],
+            zoom: 13
+          });
+
+          map.removeAll();
+          map.addMany(Object.values(layers));
+          mapView.popup.autoOpenEnabled = false;
+
+          mapView.on('click', (event: __esri.ViewClickEvent) => {
+            mapView.hitTest(event).then((response: __esri.HitTestResult) => {
+              const results = response.results as __esri.GraphicHit[];
+              const featureResult = results.find(
+                (result) =>
+                  result.graphic.layer === layers.tractIncomeLayer ||
+                  result.graphic.layer === layers.tractAgeLayer ||
+                  result.graphic.layer === layers.substationsLayer
+              );
+
+              if (featureResult) {
+                const graphic = featureResult.graphic;
+                mapView.popup.open({
+                  features: [graphic],
+                  location: event.mapPoint
+                });
+              }
+            });
+          });
 
           setView(mapView);
         } else {
