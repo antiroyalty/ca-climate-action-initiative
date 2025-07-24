@@ -57,6 +57,52 @@ Interactive mapping application for exploring California's electrical grid infra
 - `npm run build` - Build optimized production bundle
 - `npm run eject` - Eject from Create React App (irreversible)
 
+## Deployment
+
+### Production Deployment to Vercel
+
+The application is deployed at: **https://whats-my-grid-capacity.vercel.app**
+
+To deploy updates to production:
+
+1. **Build and test locally**
+   ```bash
+   npm run build
+   npm start  # Test the app locally first
+   ```
+
+2. **Commit and push changes**
+   ```bash
+   git add .
+   git commit -m "Add substation click functionality and hide electrification layers"
+   git push origin main
+   ```
+
+3. **Deploy to Vercel**
+   ```bash
+   # Install Vercel CLI if not already installed
+   npm install -g vercel
+   
+   # Deploy from the project root
+   vercel --prod
+   ```
+
+4. **Alternative: Auto-deployment**
+   - Any push to the `main` branch will automatically trigger a deployment if the repository is connected to Vercel
+   - Check the Vercel dashboard at [vercel.com/dashboard](https://vercel.com/dashboard) for deployment status
+
+### Environment Variables for Production
+
+Make sure the following environment variables are set in your Vercel project settings:
+
+- `REACT_APP_ARCGIS_API_KEY` - Your ArcGIS API key for geocoding services
+
+### Deployment Troubleshooting
+
+- **Build failures**: Check the Vercel deployment logs for specific error messages
+- **Environment variables**: Ensure all `REACT_APP_` prefixed variables are set in Vercel dashboard
+- **API keys**: Verify that your ArcGIS API key has the necessary permissions for production use
+
 ## Project Structure
 
 ```
@@ -104,7 +150,7 @@ The analytics dashboard provides real-time metrics for the current map view:
 
 Analytics update automatically as you pan and zoom the map.
 
-## Development Tips
+## Dev Guidelines
 
 1. **Layer Development**: New data layers go in `src/views/layers/` and should follow the async function pattern returning ArcGIS layer objects
 

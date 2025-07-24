@@ -33,10 +33,10 @@ const categorizeLayers = (layers: Layers) => {
             { key: 'substationsLayer', layer: layers.substationsLayer },
             // { key: 'feederLayer', layer: layers.feederLayer },
             // { key: 'lowCapacityFeederLayer', layer: layers.lowCapacityFeederLayer },
-            { key: 'minElectrificationLayer', layer: layers.minElectrificationLayer },
+            // { key: 'minElectrificationLayer', layer: layers.minElectrificationLayer },
             // { key: 'minElectrificationHalfCustLayer', layer: layers.minElectrificationHalfCustLayer },
-            { key: 'midElectrificationLayer', layer: layers.midElectrificationLayer },
-            { key: 'maxElectrificationLayer', layer: layers.maxElectrificationLayer },
+            // { key: 'midElectrificationLayer', layer: layers.midElectrificationLayer },
+            // { key: 'maxElectrificationLayer', layer: layers.maxElectrificationLayer },
 
         ],
         Population: [

@@ -16,31 +16,44 @@ const MapComponent: React.FC<MapComponentProps> = ({ view, setView, layers, zipc
 
   useEffect(() => {
     const getGeocode = async (zipcode: string) => {
-      const apiKey = process.env.REACT_APP_ARCGIS_API_KEY
+      const apiKey = process.env.REACT_APP_ARCGIS_API_KEY;
+      console.log('ArcGIS API Key present:', !!apiKey);
+      console.log('Environment:', process.env.NODE_ENV);
+      
       const endpoint = 'https://geocode-api.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates';
       const params = new URLSearchParams({
         SingleLine: zipcode,
         outFields: 'Match_addr,Addr_type',
         f: 'json',
       });
+      
       if (apiKey) {
         params.append('token', apiKey);
+      } else {
+        console.warn('No ArcGIS API key found. Geocoding may fail.');
       }
 
       const url = `${endpoint}?${params.toString()}`;
 
       try {
         const response = await fetch(url);
+        console.log('Geocode response status:', response.status);
+        
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          const errorText = await response.text();
+          console.error('Geocode API error:', errorText);
+          throw new Error(`Network response was not ok: ${response.status}`);
         }
+        
         const data = await response.json();
+        console.log('Geocode response:', data);
+        
         if (data.candidates && data.candidates.length > 0) {
           const { location } = data.candidates[0];
-          console.log("Location:", location);
+          console.log("Location found:", location);
           return { latitude: location.y, longitude: location.x };
         } else {
-          throw new Error('No candidates found');
+          throw new Error('No candidates found for zipcode: ' + zipcode);
         }
       } catch (error) {
         console.error('Error fetching geocode:', error);
@@ -49,14 +62,19 @@ const MapComponent: React.FC<MapComponentProps> = ({ view, setView, layers, zipc
     };
 
     const loadMap = async (latitude: number, longitude: number) => {
-      const mapImageLayer = await createMapImageLayer();
-      if (!layers) {
-        return;
-      }
+      try {
+        console.log('Loading map with coordinates:', { latitude, longitude });
+        console.log('Layers available:', !!layers);
+        
+        const mapImageLayer = await createMapImageLayer();
+        if (!layers) {
+          console.error('No layers available for map loading');
+          return;
+        }
 
-      if (view == null) {
-        console.log('loadMap', { layers });
-        const [Map, MapView] = await loadModules(['esri/Map', 'esri/views/MapView']);
+        if (view == null) {
+          console.log('Creating new map view with layers:', Object.keys(layers));
+          const [Map, MapView] = await loadModules(['esri/Map', 'esri/views/MapView']);
 
         const map = new Map({
           basemap: 'topo-vector'
@@ -93,20 +111,27 @@ const MapComponent: React.FC<MapComponentProps> = ({ view, setView, layers, zipc
           });
         });
 
-        setView(mapView);
-      } else {
-        console.log({ map: view.map });
+          setView(mapView);
+        } else {
+          console.log('Map view already exists:', { map: view.map });
+        }
+      } catch (error) {
+        console.error('Error loading map:', error);
       }
     };
 
     const initializeMap = async () => {
+      console.log('Initializing map with zipcode:', zipcode);
       if (zipcode) {
         try {
           const location = await getGeocode(zipcode);
+          console.log('Geocoding successful, loading map...');
           await loadMap(location.latitude, location.longitude);
         } catch (error) {
           console.error("Error initializing map:", error);
         }
+      } else {
+        console.log('No zipcode provided for map initialization');
       }
     };
 
