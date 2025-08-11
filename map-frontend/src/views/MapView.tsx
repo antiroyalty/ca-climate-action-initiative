@@ -20,7 +20,6 @@ interface MapViewProps {
 const MapView: React.FC<MapViewProps> = ({ zipcode }) => {
   const [view, setView] = useState<__esri.MapView | null>(null);
   const [layers, setLayers] = useState<Layers | null>(null);
-  const [currentLocation, setCurrentLocation] = useState<{latitude: number, longitude: number} | null>(null);
 
   useEffect(() => {
     const loadLayers = async () => {
@@ -53,7 +52,6 @@ const MapView: React.FC<MapViewProps> = ({ zipcode }) => {
 
   // Handle search location selection
   const handleLocationSelect = (location: {latitude: number, longitude: number}, address: string) => {
-    setCurrentLocation(location);
     if (view) {
       view.goTo({
         center: [location.longitude, location.latitude],

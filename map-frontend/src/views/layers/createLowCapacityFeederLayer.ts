@@ -2,8 +2,7 @@
 import { loadModules } from 'esri-loader';
 
 export const createLowCapacityFeederLayer = async () => {
-  const [FeatureLayer, GeoJSONLayer, SimpleRenderer, SimpleLineSymbol, PopupTemplate] = await loadModules([
-    'esri/layers/FeatureLayer',
+  const [GeoJSONLayer, SimpleRenderer, SimpleLineSymbol, PopupTemplate] = await loadModules([
     'esri/layers/GeoJSONLayer',
     'esri/renderers/SimpleRenderer',
     'esri/symbols/SimpleLineSymbol',

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import {
   Box,
   VStack,
@@ -53,7 +53,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ view, layers, z
   const [analytics, setAnalytics] = useState<AnalyticsData | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const calculateAnalytics = async () => {
+  const calculateAnalytics = useCallback(async () => {
     if (!view || !layers) return;
 
     setLoading(true);
@@ -152,7 +152,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ view, layers, z
     } finally {
       setLoading(false);
     }
-  };
+  }, [view, layers, zipcode]);
 
   useEffect(() => {
     if (view && layers) {
@@ -165,7 +165,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ view, layers, z
         handle.remove();
       };
     }
-  }, [view, layers]);
+  }, [view, layers, calculateAnalytics]);
 
   if (!analytics) {
     return (
