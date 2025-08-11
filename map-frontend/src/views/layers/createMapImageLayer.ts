@@ -3,8 +3,7 @@ import { loadModules } from 'esri-loader';
 import '../MapView.css'
 
 export const createMapImageLayer = async () => {
-  const [FeatureLayer, MapImageLayer, SimpleRenderer, SimpleFillSymbol, PopupTemplate] = await loadModules([
-    'esri/layers/FeatureLayer',
+  const [MapImageLayer, SimpleRenderer, SimpleFillSymbol, PopupTemplate] = await loadModules([
     'esri/layers/MapImageLayer',
     'esri/renderers/SimpleRenderer',
     'esri/symbols/SimpleFillSymbol',

@@ -2,9 +2,8 @@
 import { loadModules } from 'esri-loader';
 
 export const createSubstationsLayer = async () => {
-  const [FeatureLayer, GeoJSONLayer, SimpleRenderer, SimpleMarkerSymbol, PopupTemplate] = await loadModules([
+  const [FeatureLayer, SimpleRenderer, SimpleMarkerSymbol, PopupTemplate] = await loadModules([
     'esri/layers/FeatureLayer',
-    'esri/layers/GeoJSONLayer',
     'esri/renderers/SimpleRenderer',
     'esri/symbols/SimpleMarkerSymbol',
     'esri/PopupTemplate'
