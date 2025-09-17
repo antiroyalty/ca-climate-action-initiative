@@ -12,6 +12,7 @@ import { createSubstationsLayer } from './layers/createSubstationsLayer';
 import { createACSMedianAgeLayer } from './layers/createMedianAgeLayer';
 import { createACSMedianIncomeLayer } from './layers/createMedianIncomeLayer';
 import { createElectrificationLayers } from './layers/createElectrificationLayers';
+import { createTransmissionCATSLayer } from './layers/createTransmissionCATSLayer';
 
 interface MapViewProps {
   zipcode: string;
@@ -30,6 +31,7 @@ const MapView: React.FC<MapViewProps> = ({ zipcode }) => {
       const mapImageLayer = await createMapImageLayer();
       const substationsLayer = await createSubstationsLayer();
       const { minElectrificationLayer, minElectrificationHalfCustLayer, midElectrificationLayer, maxElectrificationLayer } = await createElectrificationLayers();
+      const transmissionCATSLayer = await createTransmissionCATSLayer();
 
       setLayers({
         countyAgeLayer,
@@ -44,6 +46,7 @@ const MapView: React.FC<MapViewProps> = ({ zipcode }) => {
         minElectrificationHalfCustLayer,
         midElectrificationLayer,
         maxElectrificationLayer,
+        transmissionCATSLayer,
       });
     };
 

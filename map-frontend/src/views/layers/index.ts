@@ -5,3 +5,4 @@ export { createMapImageLayer } from './createMapImageLayer';
 export { createSubstationsLayer } from './createSubstationsLayer';
 export { createACSMedianAgeLayer } from './createMedianAgeLayer';
 export { createACSMedianIncomeLayer } from './createMedianIncomeLayer';
+export { createTransmissionCATSLayer } from './createTransmissionCATSLayer';

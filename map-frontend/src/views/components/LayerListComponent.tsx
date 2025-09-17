@@ -19,6 +19,7 @@ export interface Layers {
     minElectrificationHalfCustLayer: __esri.FeatureLayer;
     midElectrificationLayer: __esri.FeatureLayer;
     maxElectrificationLayer: __esri.FeatureLayer;
+    transmissionCATSLayer: __esri.FeatureLayer;
 }
 
 interface LayerListComponentProps {
@@ -31,6 +32,7 @@ const categorizeLayers = (layers: Layers) => {
     return {
         Utility: [
             { key: 'substationsLayer', layer: layers.substationsLayer },
+            { key: 'transmissionCATSLayer', layer: layers.transmissionCATSLayer },
             // { key: 'feederLayer', layer: layers.feederLayer },
             // { key: 'lowCapacityFeederLayer', layer: layers.lowCapacityFeederLayer },
             // { key: 'minElectrificationLayer', layer: layers.minElectrificationLayer },
