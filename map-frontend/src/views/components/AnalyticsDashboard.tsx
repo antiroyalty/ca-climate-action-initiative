@@ -15,8 +15,11 @@ import {
   Card,
   CardBody,
   CardHeader,
-  Heading
+  Heading,
+  IconButton,
+  Collapse,
 } from '@chakra-ui/react';
+import { ChevronUpIcon, ChevronDownIcon } from '@chakra-ui/icons';
 import { Layers } from './LayerListComponent';
 
 interface AnalyticsData {
@@ -52,6 +55,7 @@ interface AnalyticsDashboardProps {
 const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ view, layers, zipcode }) => {
   const [analytics, setAnalytics] = useState<AnalyticsData | null>(null);
   const [loading, setLoading] = useState(false);
+  const [expanded, setExpanded] = useState(true);
 
   const calculateAnalytics = useCallback(async () => {
     if (!view || !layers) return;
@@ -167,118 +171,112 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ view, layers, z
     }
   }, [view, layers, calculateAnalytics]);
 
+  const header = (
+    <CardHeader py={3} px={4}>
+      <HStack justify="space-between" align="center">
+        <Box>
+          <Heading size="sm">Area Overview</Heading>
+          {expanded && <Text fontSize="xs" color="gray.500" mt={0.5}>ZIP {zipcode}</Text>}
+        </Box>
+        <IconButton
+          aria-label={expanded ? 'Collapse' : 'Expand'}
+          icon={expanded ? <ChevronUpIcon /> : <ChevronDownIcon />}
+          size="xs"
+          variant="ghost"
+          onClick={() => setExpanded(v => !v)}
+        />
+      </HStack>
+    </CardHeader>
+  );
+
   if (!analytics) {
     return (
-      <Card position="absolute" top="20px" left="20px" width="320px" bg="white" shadow="lg" zIndex={1000}>
-        <CardHeader>
-          <Heading size="md">Analytics Dashboard</Heading>
-        </CardHeader>
-        <CardBody>
-          <VStack spacing={4}>
-            {[1, 2, 3, 4].map(i => (
-              <Skeleton key={i} height="60px" width="100%" />
-            ))}
-          </VStack>
-        </CardBody>
+      <Card position="absolute" bottom="20px" left="10px" width="280px" bg="white" shadow="lg" zIndex={1000}>
+        {header}
+        <Collapse in={expanded} animateOpacity>
+          <CardBody pt={0}>
+            <VStack spacing={3}>
+              {[1, 2, 3].map(i => <Skeleton key={i} height="50px" width="100%" />)}
+            </VStack>
+          </CardBody>
+        </Collapse>
       </Card>
     );
   }
 
   return (
-    <Card position="absolute" top="20px" left="20px" width="320px" bg="white" shadow="lg" zIndex={1000}>
-      <CardHeader>
-        <Heading size="md">Analytics Dashboard</Heading>
-        <Text fontSize="sm" color="gray.600">ZIP Code: {zipcode}</Text>
-      </CardHeader>
-      
-      <CardBody>
-        <VStack spacing={4} align="stretch">
-          
-          {/* Infrastructure Metrics */}
-          <Box>
-            <Text fontWeight="bold" mb={2}>Infrastructure</Text>
-            <StatGroup>
-              <Stat>
-                <StatLabel fontSize="xs">Substations</StatLabel>
-                <StatNumber fontSize="lg">{analytics.infrastructure.substationCount}</StatNumber>
+    <Card position="absolute" bottom="20px" left="10px" width="280px" bg="white" shadow="lg" zIndex={1000}>
+      {header}
+      <Collapse in={expanded} animateOpacity>
+        <CardBody pt={0} maxHeight="calc(100vh - 120px)" overflowY="auto">
+          <VStack spacing={3} align="stretch">
+
+            <Box>
+              <Text fontWeight="semibold" fontSize="xs" mb={2}>Infrastructure</Text>
+              <StatGroup>
+                <Stat>
+                  <StatLabel fontSize="xs">Substations</StatLabel>
+                  <StatNumber fontSize="md">{analytics.infrastructure.substationCount}</StatNumber>
+                </Stat>
+                <Stat>
+                  <StatLabel fontSize="xs">Area (km²)</StatLabel>
+                  <StatNumber fontSize="md">{analytics.spatial.areaKm2}</StatNumber>
+                </Stat>
+              </StatGroup>
+            </Box>
+
+            <Divider />
+
+            <Box>
+              <Text fontWeight="semibold" fontSize="xs" mb={2}>Demographics</Text>
+              <Stat mb={2}>
+                <StatLabel fontSize="xs">Median Income</StatLabel>
+                <StatNumber fontSize="md">${analytics.demographics.medianIncome.toLocaleString()}</StatNumber>
               </Stat>
-              <Stat>
-                <StatLabel fontSize="xs">Area (km²)</StatLabel>
-                <StatNumber fontSize="lg">{analytics.spatial.areaKm2}</StatNumber>
-              </Stat>
-            </StatGroup>
-          </Box>
+              <Text fontSize="xs" color="gray.500" mb={1}>Income distribution ({analytics.demographics.totalTracts} tracts)</Text>
+              <VStack spacing={1} align="stretch">
+                {Object.entries(analytics.demographics.incomeDistribution).map(([range, count]) => (
+                  <HStack key={range} justify="space-between" fontSize="xs">
+                    <Text>{range}</Text>
+                    <Badge colorScheme="blue" fontSize="xs">{count}</Badge>
+                  </HStack>
+                ))}
+              </VStack>
+            </Box>
 
-          <Divider />
+            <Divider />
 
-          {/* Demographics */}
-          <Box>
-            <Text fontWeight="bold" mb={2}>Demographics</Text>
-            <Stat mb={3}>
-              <StatLabel fontSize="xs">Median Income</StatLabel>
-              <StatNumber fontSize="lg">${analytics.demographics.medianIncome.toLocaleString()}</StatNumber>
-            </Stat>
-            
-            <Text fontSize="xs" mb={2}>Income Distribution ({analytics.demographics.totalTracts} tracts)</Text>
-            <VStack spacing={1} align="stretch">
-              {Object.entries(analytics.demographics.incomeDistribution).map(([range, count]) => (
-                <HStack key={range} justify="space-between" fontSize="xs">
-                  <Text>{range}</Text>
-                  <Badge colorScheme="blue" size="sm">{count}</Badge>
-                </HStack>
-              ))}
-            </VStack>
-          </Box>
-
-          <Divider />
-
-          {/* Equity Analysis */}
-          <Box>
-            <Text fontWeight="bold" mb={2}>Equity Metrics</Text>
-            <VStack spacing={2} align="stretch">
-              <Box>
+            <Box>
+              <Text fontWeight="semibold" fontSize="xs" mb={2}>Equity</Text>
+              <Box mb={2}>
                 <HStack justify="space-between" mb={1}>
-                  <Text fontSize="xs">Low Income Areas</Text>
+                  <Text fontSize="xs">Low-income areas</Text>
                   <Text fontSize="xs">{Math.round(analytics.equity.lowIncomeWithLowCapacity)}%</Text>
                 </HStack>
-                <Progress 
-                  value={analytics.equity.lowIncomeWithLowCapacity} 
-                  colorScheme="orange" 
-                  size="sm" 
-                />
+                <Progress value={analytics.equity.lowIncomeWithLowCapacity} colorScheme="orange" size="sm" />
               </Box>
-              
-              <Stat>
-                <StatLabel fontSize="xs">Infrastructure Density</StatLabel>
-                <StatNumber fontSize="sm">{analytics.equity.infrastructureEquityScore} substations/tract</StatNumber>
-              </Stat>
-            </VStack>
-          </Box>
-
-          <Divider />
-
-          {/* Coverage Info */}
-          <Box>
-            <Text fontWeight="bold" mb={2}>Coverage</Text>
-            <VStack spacing={1} align="stretch" fontSize="xs">
-              <HStack justify="space-between">
-                <Text>Counties:</Text>
-                <Text>{analytics.spatial.counties.join(', ') || 'Unknown'}</Text>
-              </HStack>
-              <HStack justify="space-between">
-                <Text>Est. Population:</Text>
-                <Text>{analytics.demographics.populationEstimate.toLocaleString()}</Text>
-              </HStack>
-            </VStack>
-          </Box>
-
-          {loading && (
-            <Box position="absolute" top={0} left={0} right={0} bottom={0} bg="white" opacity={0.8} display="flex" alignItems="center" justifyContent="center">
-              <Text fontSize="sm">Updating...</Text>
+              <Text fontSize="xs" color="gray.500">
+                {analytics.equity.infrastructureEquityScore} substations/tract
+              </Text>
             </Box>
-          )}
-        </VStack>
-      </CardBody>
+
+            <Divider />
+
+            <Box>
+              <Text fontWeight="semibold" fontSize="xs" mb={1}>Coverage</Text>
+              <Text fontSize="xs" color="gray.600">{analytics.spatial.counties.join(', ') || 'Unknown'}</Text>
+              <Text fontSize="xs" color="gray.500">~{analytics.demographics.populationEstimate.toLocaleString()} residents</Text>
+            </Box>
+
+          </VStack>
+        </CardBody>
+      </Collapse>
+
+      {loading && expanded && (
+        <Box position="absolute" top={0} left={0} right={0} bottom={0} bg="whiteAlpha.700" display="flex" alignItems="center" justifyContent="center" borderRadius="md">
+          <Text fontSize="xs" color="gray.600">Updating…</Text>
+        </Box>
+      )}
     </Card>
   );
 };
