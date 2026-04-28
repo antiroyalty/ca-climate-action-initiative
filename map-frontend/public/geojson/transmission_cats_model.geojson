@@ -1,0 +1,365 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-121.4944, 38.5816]
+      },
+      "properties": {
+        "NodeID": "CATS_SAC_001",
+        "NodeName": "Sacramento Central",
+        "NodeType": "Major Hub",
+        "Region": "Northern California",
+        "Voltage_kV": 500,
+        "CurrentCapacity_MW": 2500,
+        "FutureCapacity_MW": 3200,
+        "Utilization_Percent": 87,
+        "ConstraintStatus": "High Load",
+        "AdditionalLoad_MW": 700,
+        "PeakLoadIncrease_Percent": 28,
+        "UpgradeRequired": "Yes",
+        "UpgradeCost_Million": 125.5,
+        "ConnectedLines": 8,
+        "CriticalNode": "Yes"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-122.4194, 37.7749]
+      },
+      "properties": {
+        "NodeID": "CATS_SF_001",
+        "NodeName": "San Francisco Bay",
+        "NodeType": "Metropolitan Hub", 
+        "Region": "Bay Area",
+        "Voltage_kV": 345,
+        "CurrentCapacity_MW": 1800,
+        "FutureCapacity_MW": 2100,
+        "Utilization_Percent": 92,
+        "ConstraintStatus": "Critical",
+        "AdditionalLoad_MW": 300,
+        "PeakLoadIncrease_Percent": 17,
+        "UpgradeRequired": "Yes",
+        "UpgradeCost_Million": 89.2,
+        "ConnectedLines": 12,
+        "CriticalNode": "Yes"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-118.2437, 34.0522]
+      },
+      "properties": {
+        "NodeID": "CATS_LA_001",
+        "NodeName": "Los Angeles Central",
+        "NodeType": "Major Hub",
+        "Region": "Southern California",
+        "Voltage_kV": 500,
+        "CurrentCapacity_MW": 3200,
+        "FutureCapacity_MW": 4000,
+        "Utilization_Percent": 89,
+        "ConstraintStatus": "High Load",
+        "AdditionalLoad_MW": 800,
+        "PeakLoadIncrease_Percent": 25,
+        "UpgradeRequired": "Yes",
+        "UpgradeCost_Million": 156.7,
+        "ConnectedLines": 15,
+        "CriticalNode": "Yes"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-117.1611, 32.7157]
+      },
+      "properties": {
+        "NodeID": "CATS_SD_001",
+        "NodeName": "San Diego Gateway",
+        "NodeType": "Regional Hub",
+        "Region": "Southern California",
+        "Voltage_kV": 230,
+        "CurrentCapacity_MW": 1200,
+        "FutureCapacity_MW": 1450,
+        "Utilization_Percent": 75,
+        "ConstraintStatus": "Normal",
+        "AdditionalLoad_MW": 250,
+        "PeakLoadIncrease_Percent": 21,
+        "UpgradeRequired": "Planned",
+        "UpgradeCost_Million": 42.3,
+        "ConnectedLines": 6,
+        "CriticalNode": "No"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-119.2705, 36.3302]
+      },
+      "properties": {
+        "NodeID": "CATS_FRS_001", 
+        "NodeName": "Fresno Valley",
+        "NodeType": "Agricultural Hub",
+        "Region": "Central Valley",
+        "Voltage_kV": 230,
+        "CurrentCapacity_MW": 800,
+        "FutureCapacity_MW": 950,
+        "Utilization_Percent": 68,
+        "ConstraintStatus": "Normal",
+        "AdditionalLoad_MW": 150,
+        "PeakLoadIncrease_Percent": 19,
+        "UpgradeRequired": "No",
+        "UpgradeCost_Million": 0,
+        "ConnectedLines": 4,
+        "CriticalNode": "No"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-121.8863, 37.3382]
+      },
+      "properties": {
+        "NodeID": "CATS_SJ_001",
+        "NodeName": "Silicon Valley",
+        "NodeType": "Tech Hub",
+        "Region": "Bay Area",
+        "Voltage_kV": 230,
+        "CurrentCapacity_MW": 1400,
+        "FutureCapacity_MW": 1650,
+        "Utilization_Percent": 84,
+        "ConstraintStatus": "High Load",
+        "AdditionalLoad_MW": 250,
+        "PeakLoadIncrease_Percent": 18,
+        "UpgradeRequired": "Yes",
+        "UpgradeCost_Million": 67.8,
+        "ConnectedLines": 7,
+        "CriticalNode": "Yes"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-122.2711, 37.8044]
+      },
+      "properties": {
+        "NodeID": "CATS_OAK_001",
+        "NodeName": "Oakland East Bay",
+        "NodeType": "Regional Hub",
+        "Region": "Bay Area", 
+        "Voltage_kV": 230,
+        "CurrentCapacity_MW": 1100,
+        "FutureCapacity_MW": 1300,
+        "Utilization_Percent": 79,
+        "ConstraintStatus": "Normal",
+        "AdditionalLoad_MW": 200,
+        "PeakLoadIncrease_Percent": 18,
+        "UpgradeRequired": "Planned",
+        "UpgradeCost_Million": 35.4,
+        "ConnectedLines": 5,
+        "CriticalNode": "No"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-119.7871, 34.4208]
+      },
+      "properties": {
+        "NodeID": "CATS_VEN_001",
+        "NodeName": "Ventura County",
+        "NodeType": "Coastal Hub",
+        "Region": "Southern California",
+        "Voltage_kV": 115,
+        "CurrentCapacity_MW": 600,
+        "FutureCapacity_MW": 700,
+        "Utilization_Percent": 62,
+        "ConstraintStatus": "Normal",
+        "AdditionalLoad_MW": 100,
+        "PeakLoadIncrease_Percent": 17,
+        "UpgradeRequired": "No",
+        "UpgradeCost_Million": 0,
+        "ConnectedLines": 3,
+        "CriticalNode": "No"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-121.3010, 38.7574]
+      },
+      "properties": {
+        "NodeID": "CATS_DAV_001",
+        "NodeName": "Davis Junction",
+        "NodeType": "Distribution Hub",
+        "Region": "Northern California",
+        "Voltage_kV": 115,
+        "CurrentCapacity_MW": 450,
+        "FutureCapacity_MW": 520,
+        "Utilization_Percent": 58,
+        "ConstraintStatus": "Light Load",
+        "AdditionalLoad_MW": 70,
+        "PeakLoadIncrease_Percent": 16,
+        "UpgradeRequired": "No", 
+        "UpgradeCost_Million": 0,
+        "ConnectedLines": 3,
+        "CriticalNode": "No"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-120.4429, 37.0610]
+      },
+      "properties": {
+        "NodeID": "CATS_MER_001",
+        "NodeName": "Merced Valley",
+        "NodeType": "Agricultural Hub",
+        "Region": "Central Valley", 
+        "Voltage_kV": 115,
+        "CurrentCapacity_MW": 350,
+        "FutureCapacity_MW": 400,
+        "Utilization_Percent": 52,
+        "ConstraintStatus": "Light Load",
+        "AdditionalLoad_MW": 50,
+        "PeakLoadIncrease_Percent": 14,
+        "UpgradeRequired": "No",
+        "UpgradeCost_Million": 0,
+        "ConnectedLines": 2,
+        "CriticalNode": "No"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-117.9214, 33.8121]
+      },
+      "properties": {
+        "NodeID": "CATS_ANA_001",
+        "NodeName": "Anaheim Industrial",
+        "NodeType": "Industrial Hub",
+        "Region": "Southern California",
+        "Voltage_kV": 230,
+        "CurrentCapacity_MW": 1000,
+        "FutureCapacity_MW": 1200,
+        "Utilization_Percent": 81,
+        "ConstraintStatus": "High Load",
+        "AdditionalLoad_MW": 200,
+        "PeakLoadIncrease_Percent": 20,
+        "UpgradeRequired": "Planned",
+        "UpgradeCost_Million": 48.6,
+        "ConnectedLines": 6,
+        "CriticalNode": "No"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-119.0187, 35.3733]
+      },
+      "properties": {
+        "NodeID": "CATS_BAK_001",
+        "NodeName": "Bakersfield Energy",
+        "NodeType": "Generation Hub",
+        "Region": "Central Valley",
+        "Voltage_kV": 345,
+        "CurrentCapacity_MW": 1600,
+        "FutureCapacity_MW": 1900,
+        "Utilization_Percent": 73,
+        "ConstraintStatus": "Normal",
+        "AdditionalLoad_MW": 300,
+        "PeakLoadIncrease_Percent": 19,
+        "UpgradeRequired": "Planned",
+        "UpgradeCost_Million": 55.2,
+        "ConnectedLines": 8,
+        "CriticalNode": "No"
+      }
+    },
+    {
+      "type": "Feature", 
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-121.8506, 39.7391]
+      },
+      "properties": {
+        "NodeID": "CATS_YUB_001",
+        "NodeName": "Yuba City North",
+        "NodeType": "Rural Hub",
+        "Region": "Northern California",
+        "Voltage_kV": 115,
+        "CurrentCapacity_MW": 300,
+        "FutureCapacity_MW": 350,
+        "Utilization_Percent": 44,
+        "ConstraintStatus": "Light Load",
+        "AdditionalLoad_MW": 50,
+        "PeakLoadIncrease_Percent": 17,
+        "UpgradeRequired": "No",
+        "UpgradeCost_Million": 0,
+        "ConnectedLines": 2,
+        "CriticalNode": "No"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-122.0574, 36.9741]
+      },
+      "properties": {
+        "NodeID": "CATS_SC_001", 
+        "NodeName": "Santa Cruz Coastal",
+        "NodeType": "Coastal Hub",
+        "Region": "Central Coast",
+        "Voltage_kV": 115,
+        "CurrentCapacity_MW": 400,
+        "FutureCapacity_MW": 450,
+        "Utilization_Percent": 66,
+        "ConstraintStatus": "Normal",
+        "AdditionalLoad_MW": 50,
+        "PeakLoadIncrease_Percent": 13,
+        "UpgradeRequired": "No",
+        "UpgradeCost_Million": 0,
+        "ConnectedLines": 3,
+        "CriticalNode": "No"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point", 
+        "coordinates": [-120.6596, 35.2827]
+      },
+      "properties": {
+        "NodeID": "CATS_SLO_001",
+        "NodeName": "San Luis Obispo",
+        "NodeType": "Coastal Hub",
+        "Region": "Central Coast", 
+        "Voltage_kV": 230,
+        "CurrentCapacity_MW": 500,
+        "FutureCapacity_MW": 600,
+        "Utilization_Percent": 59,
+        "ConstraintStatus": "Normal",
+        "AdditionalLoad_MW": 100,
+        "PeakLoadIncrease_Percent": 20,
+        "UpgradeRequired": "No",
+        "UpgradeCost_Million": 0,
+        "ConnectedLines": 4,
+        "CriticalNode": "No"
+      }
+    }
+  ]
+}
