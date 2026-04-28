@@ -191,7 +191,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ view, layers, z
 
   if (!analytics) {
     return (
-      <Card position="absolute" top="20px" left="20px" width="280px" bg="white" shadow="lg" zIndex={1000}>
+      <Card position="absolute" bottom="20px" left="10px" width="280px" bg="white" shadow="lg" zIndex={1000}>
         {header}
         <Collapse in={expanded} animateOpacity>
           <CardBody pt={0}>
@@ -205,10 +205,10 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ view, layers, z
   }
 
   return (
-    <Card position="absolute" top="20px" left="20px" width="280px" bg="white" shadow="lg" zIndex={1000}>
+    <Card position="absolute" bottom="20px" left="10px" width="280px" bg="white" shadow="lg" zIndex={1000}>
       {header}
       <Collapse in={expanded} animateOpacity>
-        <CardBody pt={0} maxHeight="calc(100vh - 160px)" overflowY="auto">
+        <CardBody pt={0} maxHeight="calc(100vh - 120px)" overflowY="auto">
           <VStack spacing={3} align="stretch">
 
             <Box>
