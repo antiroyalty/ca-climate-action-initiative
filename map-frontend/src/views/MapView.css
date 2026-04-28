@@ -60,6 +60,21 @@
     margin-left: 5px;
   }
 
+/* Legend — match Chakra UI card style */
+.esri-legend.esri-widget--panel {
+  max-height: 100px;
+  overflow-y: auto;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  border: none;
+  font-family: inherit;
+}
+
+.esri-ui-bottom-right .esri-component.esri-legend {
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
 /* Popup */
 .popup-content {
   font-family: Arial, sans-serif;

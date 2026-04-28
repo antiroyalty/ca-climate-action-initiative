@@ -29,7 +29,7 @@ const LegendComponent: React.FC<LegendComponentProps> = ({ view, layers }) => {
         });
 
         view.ui.add(legend, {
-            position: 'bottom-left'
+            position: 'bottom-right'
         });
 
         setLegend(legend);
