@@ -12,8 +12,6 @@ import { createSubstationsLayer } from './layers/createSubstationsLayer';
 import { createACSMedianAgeLayer } from './layers/createMedianAgeLayer';
 import { createACSMedianIncomeLayer } from './layers/createMedianIncomeLayer';
 import { createElectrificationLayers } from './layers/createElectrificationLayers';
-<<<<<<< Updated upstream
-=======
 import { createTransmissionCATSLayer } from './layers/createTransmissionCATSLayer';
 import {
   createResearchLayers,
@@ -23,7 +21,6 @@ import {
   ResearchScenarioKey,
   ResearchIncentiveKey,
 } from './layers/createResearchLayers';
->>>>>>> Stashed changes
 
 interface MapViewProps {
   zipcode: string;
@@ -44,11 +41,8 @@ const MapView: React.FC<MapViewProps> = ({ zipcode }) => {
       const mapImageLayer = await createMapImageLayer();
       const substationsLayer = await createSubstationsLayer();
       const { minElectrificationLayer, minElectrificationHalfCustLayer, midElectrificationLayer, maxElectrificationLayer } = await createElectrificationLayers();
-<<<<<<< Updated upstream
-=======
       const transmissionCATSLayer = await createTransmissionCATSLayer();
       const { billLayer, paybackLayer, eacLayer, solarSizeLayer } = await createResearchLayers();
->>>>>>> Stashed changes
 
       setLayers({
         countyAgeLayer,
@@ -63,14 +57,11 @@ const MapView: React.FC<MapViewProps> = ({ zipcode }) => {
         minElectrificationHalfCustLayer,
         midElectrificationLayer,
         maxElectrificationLayer,
-<<<<<<< Updated upstream
-=======
         transmissionCATSLayer,
         researchBillLayer: billLayer,
         researchPaybackLayer: paybackLayer,
         researchEACLayer: eacLayer,
         researchSolarSizeLayer: solarSizeLayer,
->>>>>>> Stashed changes
       });
     };
 

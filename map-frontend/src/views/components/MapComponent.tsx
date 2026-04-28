@@ -96,7 +96,11 @@ const MapComponent: React.FC<MapComponentProps> = ({ view, setView, layers, zipc
                 (result) =>
                   result.graphic.layer === layers.tractIncomeLayer ||
                   result.graphic.layer === layers.tractAgeLayer ||
-                  result.graphic.layer === layers.substationsLayer
+                  result.graphic.layer === layers.substationsLayer ||
+                  result.graphic.layer === layers.researchBillLayer ||
+                  result.graphic.layer === layers.researchPaybackLayer ||
+                  result.graphic.layer === layers.researchEACLayer ||
+                  result.graphic.layer === layers.researchSolarSizeLayer
               );
 
               if (featureResult) {

@@ -25,14 +25,11 @@ export interface Layers {
     minElectrificationHalfCustLayer: __esri.FeatureLayer;
     midElectrificationLayer: __esri.FeatureLayer;
     maxElectrificationLayer: __esri.FeatureLayer;
-<<<<<<< Updated upstream
-=======
     transmissionCATSLayer: __esri.GeoJSONLayer;
     researchBillLayer: __esri.GeoJSONLayer;
     researchPaybackLayer: __esri.GeoJSONLayer;
     researchEACLayer: __esri.GeoJSONLayer;
     researchSolarSizeLayer: __esri.GeoJSONLayer;
->>>>>>> Stashed changes
 }
 
 interface LayerListComponentProps {
@@ -49,17 +46,7 @@ const categorizeLayers = (layers: Layers) => {
     return {
         Utility: [
             { key: 'substationsLayer', layer: layers.substationsLayer },
-<<<<<<< Updated upstream
-            // { key: 'feederLayer', layer: layers.feederLayer },
-            // { key: 'lowCapacityFeederLayer', layer: layers.lowCapacityFeederLayer },
-            // { key: 'minElectrificationLayer', layer: layers.minElectrificationLayer },
-            // { key: 'minElectrificationHalfCustLayer', layer: layers.minElectrificationHalfCustLayer },
-            // { key: 'midElectrificationLayer', layer: layers.midElectrificationLayer },
-            // { key: 'maxElectrificationLayer', layer: layers.maxElectrificationLayer },
-
-=======
             { key: 'transmissionCATSLayer', layer: layers.transmissionCATSLayer },
->>>>>>> Stashed changes
         ],
         Population: [
             { key: 'mapImageLayer', layer: layers.mapImageLayer },

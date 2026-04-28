@@ -19,7 +19,7 @@ export type ResearchIncentiveKey = typeof RESEARCH_INCENTIVES[number]['key'];
 
 // ── Color helpers ──────────────────────────────────────────────────────────────
 
-const FILL_OPACITY = 0.75;
+const FILL_OPACITY = 0.5;
 
 function rgba(r: number, g: number, b: number): number[] {
   return [r, g, b, FILL_OPACITY];
@@ -215,41 +215,20 @@ export const createResearchLayers = async () => {
   const eacRenderer = await buildClassBreaksRenderer('eac_baseline', eacBreaks('eac_baseline'));
   const solarRenderer = await buildClassBreaksRenderer('solar_size_kw', solarBreaks());
 
-  const billLayer = new GeoJSONLayer({
-    url: 'geojson/research_annual_bill.geojson',
-    title: 'Annual Energy Bill',
-    outFields: ['*'],
-    renderer: billRenderer,
-    popupTemplate: new PopupTemplate(billPopup()),
-    visible: false,
-  });
+  const makeLayer = (url: string, title: string, renderer: any, popupTemplate: any) => {
+    const layer = new GeoJSONLayer({ url, title, outFields: ['*'], renderer, popupTemplate, visible: false });
+    layer.load().then(() => {
+      console.log(`[Research] ${title} loaded — ${layer.featureReduction} features`);
+    }).catch((err: any) => {
+      console.error(`[Research] ${title} failed to load:`, err);
+    });
+    return layer;
+  };
 
-  const paybackLayer = new GeoJSONLayer({
-    url: 'geojson/research_payback.geojson',
-    title: 'Payback Period',
-    outFields: ['*'],
-    renderer: paybackRenderer,
-    popupTemplate: new PopupTemplate(paybackPopup()),
-    visible: false,
-  });
-
-  const eacLayer = new GeoJSONLayer({
-    url: 'geojson/research_eac.geojson',
-    title: 'Equivalent Annual Cost (EAC)',
-    outFields: ['*'],
-    renderer: eacRenderer,
-    popupTemplate: new PopupTemplate(eacPopup()),
-    visible: false,
-  });
-
-  const solarSizeLayer = new GeoJSONLayer({
-    url: 'geojson/research_solar_size.geojson',
-    title: 'Optimal Solar Size (NEM 3.0)',
-    outFields: ['*'],
-    renderer: solarRenderer,
-    popupTemplate: new PopupTemplate(solarSizePopup()),
-    visible: false,
-  });
+  const billLayer    = makeLayer('geojson/research_annual_bill.geojson', 'Annual Energy Bill', billRenderer, new PopupTemplate(billPopup()));
+  const paybackLayer = makeLayer('geojson/research_payback.geojson',     'Payback Period',     paybackRenderer, new PopupTemplate(paybackPopup()));
+  const eacLayer     = makeLayer('geojson/research_eac.geojson',         'Equivalent Annual Cost (EAC)', eacRenderer, new PopupTemplate(eacPopup()));
+  const solarSizeLayer = makeLayer('geojson/research_solar_size.geojson','Optimal Solar Size (NEM 3.0)', solarRenderer, new PopupTemplate(solarSizePopup()));
 
   return { billLayer, paybackLayer, eacLayer, solarSizeLayer };
 };
